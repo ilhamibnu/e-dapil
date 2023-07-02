@@ -18,7 +18,7 @@
             </a>
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
-            <li class="nav-item w-100">
+            <!-- <li class="nav-item w-100">
                 <a class="nav-link" href="/checkin2">
                     <i class="fe fe-home fe-16"></i>
                     <span class="ml-3 item-text">Checkin Ticket</span>
@@ -30,11 +30,25 @@
                     <i class="fe fe-archive fe-16 "></i>
                     <span class="ml-3 item-text">Data Paket</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item w-100">
-                <a class="nav-link" href="/pendaftaran">
+                <a class="nav-link" href="/caleg">
                     <i class="fe fe-users fe-16"></i>
-                    <span class="ml-3 item-text">Data Pendaftaran</span>
+                    <span class="ml-3 item-text">Data Caleg</span>
+                </a>
+            </li>
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/kecamatan">
+                    <i class="fe fe-archive fe-16"></i>
+                    <span class="ml-3 item-text">Data Kecamatan</span>
+                </a>
+            </li>
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/desa">
+                    <i class="fe fe-archive fe-16"></i>
+                    <span class="ml-3 item-text">Data Desa</span>
                 </a>
             </li>
 

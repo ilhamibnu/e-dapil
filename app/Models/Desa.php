@@ -13,10 +13,16 @@ class Desa extends Model
 
     protected $fillable = [
         'name',
+        'id_kecamatan',
     ];
 
     public function detailDesa()
     {
         return $this->hasMany(DetailDesa::class, 'id_desa', 'id');
+    }
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
     }
 }

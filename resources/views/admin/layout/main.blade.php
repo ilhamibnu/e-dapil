@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') - Dies Natalis 2023</title>
+    <title>@yield('title') - E-Dapil</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('admin/css/simplebar.css') }}">
     <!-- Fonts CSS -->
