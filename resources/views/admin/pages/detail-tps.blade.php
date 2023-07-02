@@ -1,12 +1,12 @@
 @extends('admin.layout.main')
 
-@section('title', 'Data Caleg')
+@section('title', 'Detail TPS')
 
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Data Caleg</h2>
+            <h2 class="mb-2 page-title">Detail TPS {{ $caleg->name}}</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -43,7 +43,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama</th>
+                                        <th>Nama TPS</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -51,13 +51,13 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach($caleg as $data)
+                                    @foreach($detailtps as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->name }}</td>
                                             <td>
 
-                                            <a href="/detail-kecamatan/{{ $data->id }}"
+                                            <a href="/detail-relawan/{{ $data->id }}"
                                                     class="btn btn-success btn-sm">Detail</a>
 
                                             <button class="btn btn-warning btn-sm" data-toggle="modal"
@@ -82,9 +82,9 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Yakin Ingin Menghapus Data?
+                                                        Yakin Ingin Menghapus Data {{ $data->name }} ?
                                                     </div>
-                                                    <form action="/caleg/{{ $data->id }}" method="post">
+                                                    <form action="/detail-tps/{{ $data->id }}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <div class="modal-footer">
@@ -110,21 +110,33 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/caleg/{{ $data->id }}" method="POST">
+                                                    <form action="/detail-tps/{{ $data->id }}" method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
-                                                            <div class="form-group">
-                                                                <label for="recipient-name" class="col-form-label">Nama
-                                                                </label>
-                                                                <input type="text" value="{{ $data->name }}"
-                                                                    name="name" class="form-control"
-                                                                    id="recipient-name">
-                                                            </div>
-
-
+                                                <div class="form-group">
+                                                       
+                                                    <label for="recipient-name" class="col-form-label">Nama TPS
+                                                    </label>
+                                                    <input type="text" value="{{ $data->name }}" name="name" class="form-control"
+                                                        id="recipient-name" required>
+                                                </div>
+                                                <div hidden class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                    </label>
+                                                    <input type="text" value="{{  $caleg->id  }}" name="id_caleg" class="form-control"
+                                                        id="recipient-name" required>
+                                                </div>
+                                                <div hidden class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                    </label>
+                                                    <input type="text" value="{{  $datadesa->id  }}" name="id_detail_desa" class="form-control"
+                                                        id="recipient-name" required>
+                                                </div>
 
                                                         </div>
+
+                                                     
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn mb-2 btn-danger"
                                                                 data-dismiss="modal">Close</button>
@@ -149,18 +161,32 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="/caleg" method="POST">
+                                        <form action="/detail-tps" method="POST">
                                             @csrf
                                             @method('POST')
                                             <div class="modal-body">
 
-                                                <div class="form-group">
-                                                    <label for="recipient-name" class="col-form-label">Nama
-                                                    </label>
-                                                    <input type="text" value="" name="name" class="form-control"
-                                                        id="recipient-name" required>
-                                                </div>
+                                            <div class="form-group">
+                                                       
+                                                       <label for="recipient-name" class="col-form-label">Nama TPS
+                                                       </label>
+                                                       <input type="text" value="" name="name" class="form-control"
+                                                           id="recipient-name" required>
+                                                   </div>
+                                                   <div hidden class="form-group">
+                                                       <label for="recipient-name" class="col-form-label">Nama
+                                                       </label>
+                                                       <input type="text" value="{{  $caleg->id  }}" name="id_caleg" class="form-control"
+                                                           id="recipient-name" required>
+                                                   </div>
+                                                   <div hidden class="form-group">
+                                                       <label for="recipient-name" class="col-form-label">Nama
+                                                       </label>
+                                                       <input type="text" value="{{  $datadesa->id  }}" name="id_detail_desa" class="form-control"
+                                                           id="recipient-name" required>
+                                                   </div>
 
+                                               
 
                                             </div>
                                             <div class="modal-footer">

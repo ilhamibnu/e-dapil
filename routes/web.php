@@ -23,6 +23,21 @@ Route::post('/caleg', [CalegController::class, 'store']);
 Route::put('/caleg/{id}', [CalegController::class, 'update']);
 Route::delete('/caleg/{id}', [CalegController::class, 'delete']);
 
+Route::get('/detail-kecamatan/{id}', [CalegController::class, 'detailkecamatan']);
+Route::post('/detail-kecamatan', [CalegController::class, 'storedetailkecamatan']);
+Route::put('/detail-kecamatan/{id}', [CalegController::class, 'updatedetailkecamatan']);
+Route::delete('/detail-kecamatan/{id}', [CalegController::class, 'deletedetailkecamatan']);
+
+Route::get('/detail-desa/{id}', [CalegController::class, 'detaildesa']);
+Route::post('/detail-desa', [CalegController::class, 'storedetaildesa']);
+Route::put('/detail-desa/{id}', [CalegController::class, 'updatedetaildesa']);
+Route::delete('/detail-desa/{id}', [CalegController::class, 'deletedetaildesa']);
+
+Route::get('/detail-tps/{id}', [CalegController::class, 'detailtps']);
+Route::post('/detail-tps', [CalegController::class, 'storedetailtps']);
+Route::put('/detail-tps/{id}', [CalegController::class, 'updatedetailtps']);
+Route::delete('/detail-tps/{id}', [CalegController::class, 'deletedetailtps']);
+
 Route::get('/kecamatan', [KecamatanController::class, 'index']);
 Route::post('/kecamatan', [KecamatanController::class, 'store']);
 Route::put('/kecamatan/{id}', [KecamatanController::class, 'update']);
