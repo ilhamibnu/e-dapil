@@ -248,18 +248,43 @@ class CalegController extends Controller
 
         $caleg = Caleg::find($id_caleg);
 
+        // membuat kondisi jika relawan belum memiliki pemilih tidak ditampilkan jumlah pemilihnya jika sebaliknya maka ditampilkan jumlah pemilihnya
+
         $detailrelawan = DB::table('tb_detail_relawan')
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        ->join('tb_detail_pemilih', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
         ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
-        ->select('tb_detail_relawan.*')
+        ->select('tb_detail_relawan.*', DB::raw('count(tb_detail_pemilih.id) as pemilih'),)
         ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
         ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
+        ->groupBy('tb_detail_relawan.id')
         ->get();
+
+        if($detailrelawan->isEmpty()){
+            $detailrelawan = DB::table('tb_detail_relawan')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_detail_relawan.*')
+            ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
+            ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
+            ->get();
+        }
+
+        // $detailrelawan = DB::table('tb_detail_relawan')
+        // ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        // ->join('tb_detail_pemilih', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+        // ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
+        // ->select('tb_detail_relawan.*', DB::raw('count(tb_detail_pemilih.id) as pemilih'),)
+        // ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
+        // ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
+        // ->groupBy('tb_detail_relawan.id')
+        // ->get();
 
         return view('admin.pages.detail-relawan',[
             'caleg' => $caleg,
             'datatps' => $datatps,
             'detailrelawan' => $detailrelawan,
+            
         ]);
     }
 
@@ -278,6 +303,9 @@ class CalegController extends Controller
         $detailrelawan->id_detail_tps = $request->id_detail_tps;
         $detailrelawan->id_caleg = $request->id_caleg;
         $detailrelawan->save();
+
+
+
         return redirect()->back()->with('create', 'Data Detail Relawan berhasil ditambahkan');
     }
 
@@ -370,5 +398,77 @@ class CalegController extends Controller
         $detailpemilih = DetailPemilih::find($id);
         $detailpemilih->delete();
         return redirect()->back()->with('delete', 'Data Detail Pemilih berhasil dihapus');
+    }
+
+    // report 
+
+    public function report(){
+        // menampilkan jumlah suara per caleg berdasarkan kecamatan
+
+        $bykecamatan = DB::table('tb_detail_pemilih')
+        ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+        ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+        ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+        ->select('tb_caleg.name as caleg', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_kecamatan.name')
+        ->get();
+
+        // menampilkan jumlah suara per caleg berdasarkan desa
+
+        $bydesa = DB::table('tb_detail_pemilih')
+        ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+        ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+        ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_desa.name')
+        ->get();
+
+        // menampilkan jumlah suara per caleg berdasarkan tps serta nama desa
+
+        $bytps = DB::table('tb_detail_pemilih')
+        ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+        ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+        ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->select('tb_caleg.name as caleg', 'tb_detail_tps.name as tps', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_detail_tps.name', 'tb_desa.name')
+        ->get();
+
+        // menampilkan jumlah suara per caleg berdasarkan relawan serta nama tps dan desa
+
+        $byrelawan = DB::table('tb_detail_pemilih')
+        ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+        ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+        ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+       ->select('tb_caleg.name as caleg', 'tb_detail_relawan.name as relawan', 'tb_detail_tps.name as tps', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_detail_relawan.name', 'tb_detail_tps.name', 'tb_desa.name')
+        ->get();
+
+
+        // menampilkan jumlah suara per caleg berdasarkan pemilih
+
+
+        $bypemilih = DB::table('tb_detail_pemilih')
+        ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->select('tb_caleg.name as caleg', 'tb_detail_pemilih.name as pemilih', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name')
+        ->get();
+
+        return view('admin.pages.report',[
+            'bykecamatan' => $bykecamatan,
+            'bydesa' => $bydesa,
+            'bytps' => $bytps,
+            'byrelawan' => $byrelawan,
+            'bypemilih' => $bypemilih,
+        ]);
+        
     }
 }

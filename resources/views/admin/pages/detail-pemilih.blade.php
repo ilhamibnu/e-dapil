@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
-                          
+
                             @if($errors->any())
                                 <div class="alert alert-danger alert-dismissible fade show">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -121,7 +121,7 @@
                                                             <div class="form-group">
 
                                                                 <label for="recipient-name" class="col-form-label">Nama
-                                                                    Relawan
+                                                                    Pemilih
                                                                 </label>
                                                                 <input type="text" value="{{ $data->name }}"
                                                                     name="name" class="form-control" id="recipient-name"
@@ -186,7 +186,7 @@
                                                 <div class="form-group">
 
                                                     <label for="recipient-name" class="col-form-label">Nama
-                                                        Relawan
+                                                        Pemilih
                                                     </label>
                                                     <input type="text" value="" name="name" class="form-control"
                                                         id="recipient-name" required>

@@ -18,6 +18,13 @@
             </a>
         </div>
         <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/index">
+                    <i class="fe fe-home fe-16"></i>
+                    <span class="ml-3 item-text">Home</span>
+                </a>
+            </li>
+
             <!-- <li class="nav-item w-100">
                 <a class="nav-link" href="/checkin2">
                     <i class="fe fe-home fe-16"></i>
@@ -49,6 +56,13 @@
                 <a class="nav-link" href="/desa">
                     <i class="fe fe-archive fe-16"></i>
                     <span class="ml-3 item-text">Data Desa</span>
+                </a>
+            </li>
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/report">
+                    <i class="fe fe-archive fe-16"></i>
+                    <span class="ml-3 item-text">Report</span>
                 </a>
             </li>
 

@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
-                          
+
                             @if($errors->any())
                                 <div class="alert alert-danger alert-dismissible fade show">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -46,6 +46,7 @@
                                         <th>No</th>
                                         <th>Nama Relawan</th>
                                         <th>Alamat</th>
+                                       
                                         <th>Action</th>
                                     </tr>
                                 </thead>
