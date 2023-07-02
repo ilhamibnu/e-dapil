@@ -12,6 +12,8 @@ class Caleg extends Model
 
     protected $fillable = [
         'name',
+        'no_urut',
+        'foto',
     ];
 
     public function detailDesa()

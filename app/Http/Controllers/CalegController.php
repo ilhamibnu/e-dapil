@@ -12,6 +12,7 @@ use App\Models\DetailPemilih;
 use App\Models\DetailRelawan;
 use App\Models\DetailKecamatan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class CalegController extends Controller
 {
@@ -20,7 +21,7 @@ class CalegController extends Controller
 
 
     public function index(){
-        $caleg = Caleg::all();
+        $caleg = Caleg::all()->sortBy('no_urut');
         return view('admin.pages.caleg',[
             'caleg' => $caleg,
         ]);
@@ -30,13 +31,23 @@ class CalegController extends Controller
 
         $request->validate([
             'name' => 'required',
+            'no_urut' => 'required',
+            'foto' => 'required|max:5000|mimes:jpg,jpeg,png',
         ],[
             'name.required' => 'Nama Caleg tidak boleh kosong',
-
+            'no_urut.required' => 'No Urut tidak boleh kosong',
+            'foto.required' => 'Foto tidak boleh kosong',
+            'foto.max' => 'Foto maksimal 5MB',
+            'foto.mimes' => 'Foto harus berformat jpg, jpeg, png',
         ]);
+
+        $fileNameImage = time() . Rand(999, 999) . '.' . $request->foto->extension();
+        $request->foto->move(public_path('admin/foto/caleg/'), $fileNameImage);
 
         $caleg = new Caleg;
         $caleg->name = $request->name;
+        $caleg->no_urut = $request->no_urut;
+        $caleg->foto = $fileNameImage;
         $caleg->save();
         return redirect('/caleg')->with('create', 'Data Caleg berhasil ditambahkan');
 
@@ -46,18 +57,36 @@ class CalegController extends Controller
 
         $request->validate([
             'name' => 'required',
+            'no_urut' => 'required',
+            'foto' => 'max:5000|mimes:jpg,jpeg,png',
         ],[
             'name.required' => 'Nama Caleg tidak boleh kosong',
+            'no_urut.required' => 'No Urut tidak boleh kosong',
+            'foto.max' => 'Foto maksimal 5MB',
+            'foto.mimes' => 'Foto harus berformat jpg, jpeg, png',
         ]);
+
+        if($request->foto){
+            $caleg = Caleg::find($id);
+            File::delete('admin/foto/caleg/' . $caleg->foto);
+
+            $fileNameImage = time() . Rand(999, 999) . '.' . $request->foto->extension();
+            $request->foto->move(public_path('admin/foto/caleg/'), $fileNameImage);
+
+            $caleg->foto = $fileNameImage;
+            $caleg->save();
+        }
 
         $caleg = Caleg::find($id);
         $caleg->name = $request->name;
+        $caleg->no_urut = $request->no_urut;
         $caleg->save();
         return redirect('/caleg')->with('update', 'Data Caleg berhasil diubah');
     }
 
     public function delete($id){
         $caleg = Caleg::find($id);
+        File::delete('admin/foto/caleg/' . $caleg->foto);
         $caleg->delete();
         return redirect('/caleg')->with('delete', 'Data Caleg berhasil dihapus');
     }
@@ -248,19 +277,7 @@ class CalegController extends Controller
 
         $caleg = Caleg::find($id_caleg);
 
-        // membuat kondisi jika relawan belum memiliki pemilih tidak ditampilkan jumlah pemilihnya jika sebaliknya maka ditampilkan jumlah pemilihnya
 
-        $detailrelawan = DB::table('tb_detail_relawan')
-        ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-        ->join('tb_detail_pemilih', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-        ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
-        ->select('tb_detail_relawan.*', DB::raw('count(tb_detail_pemilih.id) as pemilih'),)
-        ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
-        ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
-        ->groupBy('tb_detail_relawan.id')
-        ->get();
-
-        if($detailrelawan->isEmpty()){
             $detailrelawan = DB::table('tb_detail_relawan')
             ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
             ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
@@ -268,18 +285,6 @@ class CalegController extends Controller
             ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
             ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
             ->get();
-        }
-
-        // $detailrelawan = DB::table('tb_detail_relawan')
-        // ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-        // ->join('tb_detail_pemilih', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-        // ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
-        // ->select('tb_detail_relawan.*', DB::raw('count(tb_detail_pemilih.id) as pemilih'),)
-        // ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
-        // ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
-        // ->groupBy('tb_detail_relawan.id')
-        // ->get();
-
         return view('admin.pages.detail-relawan',[
             'caleg' => $caleg,
             'datatps' => $datatps,
@@ -412,6 +417,7 @@ class CalegController extends Controller
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
         ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+        ->orderBy('tb_caleg.no_urut', 'asc')
         ->select('tb_caleg.name as caleg', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
         ->groupBy('tb_caleg.name', 'tb_kecamatan.name')
         ->get();
@@ -424,6 +430,7 @@ class CalegController extends Controller
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->orderBy('tb_caleg.no_urut', 'asc')
         ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
         ->groupBy('tb_caleg.name', 'tb_desa.name')
         ->get();
@@ -436,6 +443,7 @@ class CalegController extends Controller
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->orderBy('tb_caleg.no_urut', 'asc')
         ->select('tb_caleg.name as caleg', 'tb_detail_tps.name as tps', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
         ->groupBy('tb_caleg.name', 'tb_detail_tps.name', 'tb_desa.name')
         ->get();
@@ -448,6 +456,7 @@ class CalegController extends Controller
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->orderBy('tb_caleg.no_urut', 'asc')
        ->select('tb_caleg.name as caleg', 'tb_detail_relawan.name as relawan', 'tb_detail_tps.name as tps', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
         ->groupBy('tb_caleg.name', 'tb_detail_relawan.name', 'tb_detail_tps.name', 'tb_desa.name')
         ->get();
@@ -458,6 +467,7 @@ class CalegController extends Controller
 
         $bypemilih = DB::table('tb_detail_pemilih')
         ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->orderBy('tb_caleg.no_urut', 'asc')
         ->select('tb_caleg.name as caleg', 'tb_detail_pemilih.name as pemilih', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
         ->groupBy('tb_caleg.name')
         ->get();

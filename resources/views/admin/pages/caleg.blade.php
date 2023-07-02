@@ -43,6 +43,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>No Urut</th>
+                                        <th>Foto</th>
                                         <th>Nama</th>
                                         <th>Action</th>
                                     </tr>
@@ -54,6 +56,10 @@
                                     @foreach($caleg as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
+                                            <td>{{ $data->no_urut }}</td>
+                                            <td><img class="rounded-circle"
+                                                    src="{{ asset('admin/foto/caleg/' . $data->foto) }}"
+                                                    alt="" style="width: 100px; height: 100px"></td>
                                             <td>{{ $data->name }}</td>
                                             <td>
 
@@ -110,7 +116,8 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/caleg/{{ $data->id }}" method="POST">
+                                                    <form action="/caleg/{{ $data->id }}" method="POST"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
@@ -121,9 +128,23 @@
                                                                     name="name" class="form-control"
                                                                     id="recipient-name">
                                                             </div>
-
-
-
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">No
+                                                                    Urut
+                                                                </label>
+                                                                <input type="text" value="{{ $data->no_urut }}"
+                                                                    name="no_urut" class="form-control"
+                                                                    id="recipient-name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="customFile">Upload Foto</label>
+                                                                <div class="custom-file">
+                                                                    <input type="file" name="foto"
+                                                                        class="custom-file-input" id="customFile">
+                                                                    <label class="custom-file-label"
+                                                                        for="customFile">Choose file</label>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn mb-2 btn-danger"
@@ -149,7 +170,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="/caleg" method="POST">
+                                        <form action="/caleg" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('POST')
                                             <div class="modal-body">
@@ -159,6 +180,22 @@
                                                     </label>
                                                     <input type="text" value="" name="name" class="form-control"
                                                         id="recipient-name" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">No
+                                                        Urut
+                                                    </label>
+                                                    <input type="text" value="" name="no_urut" class="form-control"
+                                                        id="recipient-name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="customFile">Upload Foto</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" name="foto" class="custom-file-input"
+                                                            id="customFile">
+                                                        <label class="custom-file-label" for="customFile">Choose
+                                                            file</label>
+                                                    </div>
                                                 </div>
 
 
