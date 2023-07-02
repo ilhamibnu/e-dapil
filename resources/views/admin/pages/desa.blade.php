@@ -117,7 +117,8 @@
                                                         @method('PUT')
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="recipient-name" class="col-form-label">Nama Desa
+                                                                <label for="recipient-name" class="col-form-label">Nama
+                                                                    Desa
                                                                 </label>
                                                                 <input type="text" value="{{ $data->name }}"
                                                                     name="name" class="form-control"
@@ -128,7 +129,8 @@
                                                                 <label for="example-select">Kecamatan</label>
                                                                 <select name="id_kecamatan" class="form-control"
                                                                     id="example-select">
-                                                                    <option selected value="{{ $data->id_kecamatan }}">
+                                                                    <option selected
+                                                                        value="{{ $data->id_kecamatan }}">
                                                                         {{ $data->kecamatan->name }}</option>
                                                                     @foreach($kecamatan as $data)
                                                                         <option value="{{ $data->id }}">
@@ -176,15 +178,16 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                                <label for="example-select">Kecamatan</label>
-                                                                <select name="id_kecamatan" class="form-control"
-                                                                    id="example-select">
-                                                                    <option selected disabled>Pilih Kecamatan</option>
-                                                                    @foreach ($kecamatan as $data )
-                                                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
+                                                    <label for="example-select">Kecamatan</label>
+                                                    <select name="id_kecamatan" class="form-control"
+                                                        id="example-select">
+                                                        <option selected disabled>Pilih Kecamatan</option>
+                                                        @foreach($kecamatan as $data )
+                                                            <option value="{{ $data->id }}">{{ $data->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
 
                                             </div>
                                             <div class="modal-footer">

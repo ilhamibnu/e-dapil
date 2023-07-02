@@ -1,12 +1,12 @@
 @extends('admin.layout.main')
 
-@section('title', 'Detail Desa')
+@section('title', 'Detail Pemilih')
 
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Detail Desa {{ $caleg->name }}</h2>
+            <h2 class="mb-2 page-title">Detail Pemilih {{ $caleg->name }}</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
-                           
+                          
                             @if($errors->any())
                                 <div class="alert alert-danger alert-dismissible fade show">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -44,7 +44,8 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Desa</th>
+                                        <th>Nama Pemilih</th>
+                                        <th>Alamat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -52,14 +53,15 @@
                                     @php
                                         $no = 1;
                                     @endphp
-                                    @foreach($detaildesa as $data)
+                                    @foreach($detailpemilih as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $data->desa }}</td>
+                                            <td>{{ $data->name }}</td>
+                                            <td>{{ $data->alamat }}</td>
                                             <td>
 
-                                                <a href="/detail-tps/{{ $data->id }}"
-                                                    class="btn btn-success btn-sm">Detail</a>
+                                                <!-- <a href="/detail-pemilih/{{ $data->id }}"
+                                                    class="btn btn-success btn-sm">Detail</a> -->
 
                                                 <button class="btn btn-warning btn-sm" data-toggle="modal"
                                                     data-target="#editModal{{ $data->id }}">Edit</button>
@@ -83,9 +85,9 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Yakin Ingin Menghapus Data {{ $data->desa }} ?
+                                                        Yakin Ingin Menghapus Data {{ $data->name }} ?
                                                     </div>
-                                                    <form action="/detail-desa/{{ $data->id }}" method="post">
+                                                    <form action="/detail-pemilih/{{ $data->id }}" method="post">
                                                         @csrf
                                                         @method('delete')
                                                         <div class="modal-footer">
@@ -111,10 +113,28 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form action="/detail-desa/{{ $data->id }}" method="POST">
+                                                    <form action="/detail-pemilih/{{ $data->id }}" method="POST">
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
+
+                                                            <div class="form-group">
+
+                                                                <label for="recipient-name" class="col-form-label">Nama
+                                                                    Relawan
+                                                                </label>
+                                                                <input type="text" value="{{ $data->name }}"
+                                                                    name="name" class="form-control" id="recipient-name"
+                                                                    required>
+                                                            </div>
+                                                            <div class="form-group">
+
+                                                                <label for="recipient-name"
+                                                                    class="col-form-label">Alamat
+                                                                </label>
+                                                                <textarea class="form-control" name="alamat" cols="30"
+                                                                    rows="10">{{ $data->alamat }}</textarea>
+                                                            </div>
                                                             <div hidden class="form-group">
                                                                 <label for="recipient-name" class="col-form-label">Nama
                                                                 </label>
@@ -122,17 +142,12 @@
                                                                     name="id_caleg" class="form-control"
                                                                     id="recipient-name" required>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="example-select">Kecamatan</label>
-                                                                <select name="id_desa" class="form-control"
-                                                                    id="example-select">
-                                                                    <option value="{{ $data->id_desa }}">
-                                                                        {{ $data->desa }}</option>
-                                                                    @foreach($desa as $data )
-                                                                        <option value="{{ $data->id }}">
-                                                                            {{ $data->name }}</option>
-                                                                    @endforeach
-                                                                </select>
+                                                            <div hidden class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Nama
+                                                                </label>
+                                                                <input type="text" value="{{ $datarelawan->id }}"
+                                                                    name="id_detail_relawan" class="form-control"
+                                                                    id="recipient-name" required>
                                                             </div>
 
                                                         </div>
@@ -162,27 +177,40 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="/detail-desa" method="POST">
+                                        <form action="/detail-pemilih" method="POST">
                                             @csrf
                                             @method('POST')
                                             <div class="modal-body">
 
+
+                                                <div class="form-group">
+
+                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                        Relawan
+                                                    </label>
+                                                    <input type="text" value="" name="name" class="form-control"
+                                                        id="recipient-name" required>
+                                                </div>
+
+                                                <div class="form-group">
+
+                                                    <label for="recipient-name" class="col-form-label">Alamat
+                                                    </label>
+                                                    <textarea class="form-control" name="alamat" cols="30"
+                                                        rows="10"></textarea>
+                                                </div>
                                                 <div hidden class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Nama
                                                     </label>
                                                     <input type="text" value="{{ $caleg->id }}" name="id_caleg"
                                                         class="form-control" id="recipient-name" required>
                                                 </div>
-
-                                                <div class="form-group">
-                                                    <label for="example-select">Desa</label>
-                                                    <select name="id_desa" class="form-control" id="example-select">
-                                                        <option selected disabled>Pilih Desa</option>
-                                                        @foreach($desa as $data )
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                <div hidden class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Nama
+                                                    </label>
+                                                    <input type="text" value="{{ $datarelawan->id }}"
+                                                        name="id_detail_relawan" class="form-control"
+                                                        id="recipient-name" required>
                                                 </div>
 
 

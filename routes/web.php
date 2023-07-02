@@ -38,6 +38,16 @@ Route::post('/detail-tps', [CalegController::class, 'storedetailtps']);
 Route::put('/detail-tps/{id}', [CalegController::class, 'updatedetailtps']);
 Route::delete('/detail-tps/{id}', [CalegController::class, 'deletedetailtps']);
 
+Route::get('/detail-relawan/{id}', [CalegController::class, 'detailrelawan']);
+Route::post('/detail-relawan', [CalegController::class, 'storedetailrelawan']);
+Route::put('/detail-relawan/{id}', [CalegController::class, 'updatedetailrelawan']);
+Route::delete('/detail-relawan/{id}', [CalegController::class, 'deletedetailrelawan']);
+
+Route::get('/detail-pemilih/{id}', [CalegController::class, 'detailpemilih']);
+Route::post('/detail-pemilih', [CalegController::class, 'storedetailpemilih']);
+Route::put('/detail-pemilih/{id}', [CalegController::class, 'updatedetailpemilih']);
+Route::delete('/detail-pemilih/{id}', [CalegController::class, 'deletedetailpemilih']);
+
 Route::get('/kecamatan', [KecamatanController::class, 'index']);
 Route::post('/kecamatan', [KecamatanController::class, 'store']);
 Route::put('/kecamatan/{id}', [KecamatanController::class, 'update']);

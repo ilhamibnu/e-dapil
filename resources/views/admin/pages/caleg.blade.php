@@ -57,14 +57,14 @@
                                             <td>{{ $data->name }}</td>
                                             <td>
 
-                                            <a href="/detail-kecamatan/{{ $data->id }}"
+                                                <a href="/detail-kecamatan/{{ $data->id }}"
                                                     class="btn btn-success btn-sm">Detail</a>
 
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#editModal{{ $data->id }}">Edit</button>
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal"
+                                                    data-target="#editModal{{ $data->id }}">Edit</button>
 
-                                            <button class="btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#deleteModal{{ $data->id }}">Delete</button>
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                                    data-target="#deleteModal{{ $data->id }}">Delete</button>
 
                                             </td>
                                         </tr>

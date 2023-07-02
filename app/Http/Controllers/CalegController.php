@@ -8,6 +8,8 @@ use App\Models\DetailTps;
 use App\Models\Kecamatan;
 use App\Models\DetailDesa;
 use Illuminate\Http\Request;
+use App\Models\DetailPemilih;
+use App\Models\DetailRelawan;
 use App\Models\DetailKecamatan;
 use Illuminate\Support\Facades\DB;
 
@@ -190,7 +192,7 @@ class CalegController extends Controller
         ->join('tb_caleg', 'tb_detail_tps.id_caleg', '=', 'tb_caleg.id')
         ->select('tb_detail_tps.*')
         ->where('tb_detail_tps.id_caleg', '=', $id_caleg)
-        ->where('tb_detail_desa.id_desa', '=', $id_desa)
+        ->where('tb_detail_tps.id_detail_desa', '=', $id_desa)
         ->get();
 
         return view('admin.pages.detail-tps',[
@@ -234,5 +236,139 @@ class CalegController extends Controller
         $detailtps = DetailTps::find($id);
         $detailtps->delete();
         return redirect()->back()->with('delete', 'Data Detail TPS berhasil dihapus');
+    }
+
+    // detail relawatan
+
+    public function detailrelawan($id){
+
+        $datatps = DetailTps::find($id);
+        $id_caleg = $datatps->id_caleg;
+        $id_tps = $datatps->id;
+
+        $caleg = Caleg::find($id_caleg);
+
+        $detailrelawan = DB::table('tb_detail_relawan')
+        ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+        ->join('tb_caleg', 'tb_detail_relawan.id_caleg', '=', 'tb_caleg.id')
+        ->select('tb_detail_relawan.*')
+        ->where('tb_detail_relawan.id_caleg', '=', $id_caleg)
+        ->where('tb_detail_relawan.id_detail_tps', '=', $id_tps)
+        ->get();
+
+        return view('admin.pages.detail-relawan',[
+            'caleg' => $caleg,
+            'datatps' => $datatps,
+            'detailrelawan' => $detailrelawan,
+        ]);
+    }
+
+    public function storedetailrelawan(Request $request){
+        $request->validate([
+           'name' => 'required',
+           'alamat' => 'required',
+        ],[
+            'name.required' => 'Nama Relawan tidak boleh kosong',
+            'alamat.required' => 'Alamat Relawan tidak boleh kosong',
+        ]);
+
+        $detailrelawan = new DetailRelawan;
+        $detailrelawan->name = $request->name;
+        $detailrelawan->alamat = $request->alamat;
+        $detailrelawan->id_detail_tps = $request->id_detail_tps;
+        $detailrelawan->id_caleg = $request->id_caleg;
+        $detailrelawan->save();
+        return redirect()->back()->with('create', 'Data Detail Relawan berhasil ditambahkan');
+    }
+
+    public function updatedetailrelawan(Request $request, $id){
+        $request->validate([
+            'name' => 'required',
+            'alamat' => 'required',
+        ],[
+            'name.required' => 'Nama Relawan tidak boleh kosong',
+            'alamat.required' => 'Alamat Relawan tidak boleh kosong',
+        ]);
+
+        $detailrelawan = DetailRelawan::find($id);
+        $detailrelawan->name = $request->name;
+        $detailrelawan->alamat = $request->alamat;
+        $detailrelawan->id_detail_tps = $request->id_detail_tps;
+        $detailrelawan->id_caleg = $request->id_caleg;
+        $detailrelawan->save();
+        return redirect()->back()->with('update', 'Data Detail Relawan berhasil diubah');
+    }
+
+    public function deletedetailrelawan($id){
+        $detailrelawan = DetailRelawan::find($id);
+        $detailrelawan->delete();
+        return redirect()->back()->with('delete', 'Data Detail Relawan berhasil dihapus');
+    }
+
+    // detail pemilih
+
+    public function detailpemilih($id){
+
+        $datarelawan = DetailRelawan::find($id);
+        $id_caleg = $datarelawan->id_caleg;
+        $id_relawan = $datarelawan->id;
+
+        $caleg = Caleg::find($id_caleg);
+
+        $detailpemilih = DB::table('tb_detail_pemilih')
+        ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+        ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
+        ->select('tb_detail_pemilih.*')
+        ->where('tb_detail_pemilih.id_caleg', '=', $id_caleg)
+        ->where('tb_detail_pemilih.id_detail_relawan', '=', $id_relawan)
+        ->get();
+
+        return view('admin.pages.detail-pemilih',[
+            'caleg' => $caleg,
+            'datarelawan' => $datarelawan,
+            'detailpemilih' => $detailpemilih,
+        ]);
+    }
+
+    public function storedetailpemilih(Request $request){
+        $request->validate([
+           'name' => 'required',
+           'alamat' => 'required',
+        ],[
+            'name.required' => 'Nama Pemilih tidak boleh kosong',
+            'alamat.required' => 'Alamat Pemilih tidak boleh kosong',
+        ]);
+
+        $detailpemilih = new DetailPemilih;
+        $detailpemilih->name = $request->name;
+        $detailpemilih->alamat = $request->alamat;
+        $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
+        $detailpemilih->id_caleg = $request->id_caleg;
+        $detailpemilih->save();
+        return redirect()->back()->with('create', 'Data Detail Pemilih berhasil ditambahkan');
+    }
+
+    public function updatedetailpemilih(Request $request, $id){
+        $request->validate([
+            'name' => 'required',
+            'alamat' => 'required',
+        ],[
+            'name.required' => 'Nama Pemilih tidak boleh kosong',
+            'alamat.required' => 'Alamat Pemilih tidak boleh kosong',
+        ]);
+
+        $detailpemilih = DetailPemilih::find($id);
+        $detailpemilih->name = $request->name;
+        $detailpemilih->alamat = $request->alamat;
+        $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
+        $detailpemilih->id_caleg = $request->id_caleg;
+        $detailpemilih->save();
+        return redirect()->back()->with('update', 'Data Detail Pemilih berhasil diubah');
+    }
+
+    public function deletedetailpemilih($id){
+        $detailpemilih = DetailPemilih::find($id);
+        $detailpemilih->delete();
+        return redirect()->back()->with('delete', 'Data Detail Pemilih berhasil dihapus');
     }
 }

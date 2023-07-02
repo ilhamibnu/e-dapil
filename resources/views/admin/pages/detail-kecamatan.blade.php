@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Detail Kecamatan {{ $caleg->name}}</h2>
+            <h2 class="mb-2 page-title">Detail Kecamatan {{ $caleg->name }}</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -15,6 +15,7 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
+                           >
                             @if($errors->any())
                                 <div class="alert alert-danger alert-dismissible fade show">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -57,14 +58,14 @@
                                             <td>{{ $data->kecamatan }}</td>
                                             <td>
 
-                                            <a href="/detail-desa/{{ $data->id }}"
+                                                <a href="/detail-desa/{{ $data->id }}"
                                                     class="btn btn-success btn-sm">Detail</a>
 
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#editModal{{ $data->id }}">Edit</button>
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal"
+                                                    data-target="#editModal{{ $data->id }}">Edit</button>
 
-                                            <button class="btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#deleteModal{{ $data->id }}">Delete</button>
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                                    data-target="#deleteModal{{ $data->id }}">Delete</button>
 
                                             </td>
                                         </tr>
@@ -114,26 +115,29 @@
                                                         @csrf
                                                         @method('PUT')
                                                         <div class="modal-body">
-                                                        <div hidden class="form-group">
-                                                    <label for="recipient-name" class="col-form-label">Nama
-                                                    </label>
-                                                    <input type="text" value="{{  $caleg->id  }}" name="id_caleg" class="form-control"
-                                                        id="recipient-name" required>
-                                                </div>
-                                                <div class="form-group">
+                                                            <div hidden class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Nama
+                                                                </label>
+                                                                <input type="text" value="{{ $caleg->id }}"
+                                                                    name="id_caleg" class="form-control"
+                                                                    id="recipient-name" required>
+                                                            </div>
+                                                            <div class="form-group">
                                                                 <label for="example-select">Kecamatan</label>
                                                                 <select name="id_kecamatan" class="form-control"
                                                                     id="example-select">
-                                                                    <option value="{{ $data->id_kecamatan }}">{{ $data->kecamatan }}</option>
-                                                                    @foreach ($kecamatan as $data )
-                                                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                                                    <option value="{{ $data->id_kecamatan }}">
+                                                                        {{ $data->kecamatan }}</option>
+                                                                    @foreach($kecamatan as $data )
+                                                                        <option value="{{ $data->id }}">
+                                                                            {{ $data->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
 
                                                         </div>
 
-                                                     
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn mb-2 btn-danger"
                                                                 data-dismiss="modal">Close</button>
@@ -166,20 +170,21 @@
                                                 <div hidden class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Nama
                                                     </label>
-                                                    <input type="text" value="{{  $caleg->id  }}" name="id_caleg" class="form-control"
-                                                        id="recipient-name" required>
+                                                    <input type="text" value="{{ $caleg->id }}" name="id_caleg"
+                                                        class="form-control" id="recipient-name" required>
                                                 </div>
 
                                                 <div class="form-group">
-                                                                <label for="example-select">Kecamatan</label>
-                                                                <select name="id_kecamatan" class="form-control"
-                                                                    id="example-select">
-                                                                    <option selected disabled>Pilih Kecamatan</option>
-                                                                    @foreach ($kecamatan as $data )
-                                                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
+                                                    <label for="example-select">Kecamatan</label>
+                                                    <select name="id_kecamatan" class="form-control"
+                                                        id="example-select">
+                                                        <option selected disabled>Pilih Kecamatan</option>
+                                                        @foreach($kecamatan as $data )
+                                                            <option value="{{ $data->id }}">{{ $data->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
 
 
                                             </div>

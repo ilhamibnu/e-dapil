@@ -115,7 +115,8 @@
                                                         @method('PUT')
                                                         <div class="modal-body">
                                                             <div class="form-group">
-                                                                <label for="recipient-name" class="col-form-label">Nama Kecamatan
+                                                                <label for="recipient-name" class="col-form-label">Nama
+                                                                    Kecamatan
                                                                 </label>
                                                                 <input type="text" value="{{ $data->name }}"
                                                                     name="name" class="form-control"
