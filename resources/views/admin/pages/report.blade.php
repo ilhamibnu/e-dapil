@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report</h2>
+            <h2 class="mb-2 page-title">Report Perolehan Suara Per Caleg</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -36,8 +36,8 @@
                             <!-- table -->
                             <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-1">
                                 <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button>
+                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#addModal">Add</button> -->
                                 </div>
 
                                 <thead>
@@ -72,7 +72,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report</h2>
+            <h2 class="mb-2 page-title">Report Perolehan Suara Per Caleg Berdasarkan Relawan</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -102,15 +102,15 @@
                             <!-- table -->
                             <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-2">
                                 <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button>
+                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#addModal">Add</button> -->
                                 </div>
 
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Caleg</th>
-                                       
+                                        <th>Kecamatan</th>
                                         <th>Desa</th>
                                         <th>TPS</th>
                                         <th>Nama Relawan</th>
@@ -126,6 +126,7 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->caleg }}</td>
+                                            <td>{{ $data->kecamatan }}</td>
                                             <td>{{ $data->desa }}</td>
                                             <td>{{ $data->tps }}</td>
                                             <td>{{ $data->relawan }}</td>
@@ -144,7 +145,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report</h2>
+            <h2 class="mb-2 page-title">Report Perolehan Suara Per Caleg Berdasarkan TPS</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -174,14 +175,15 @@
                             <!-- table -->
                             <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-3">
                                 <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button>
+                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#addModal">Add</button> -->
                                 </div>
 
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Caleg</th>
+                                        <th>Kecamatan</th>
                                         <th>Nama Desa</th>
                                         <th>TPS</th>
                                         <th>Total Suara</th>
@@ -196,6 +198,7 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->caleg }}</td>
+                                            <td>{{ $data->kecamatan }}</td>
                                             <td>{{ $data->desa }}</td>
                                             <td>{{ $data->tps }}</td>
                                             <td>{{ $data->total }}</td>
@@ -213,7 +216,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report</h2>
+            <h2 class="mb-2 page-title">Report Perolehan Suara Per Caleg Berdasarkan Desa</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -243,14 +246,15 @@
                             <!-- table -->
                             <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-4">
                                 <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button>
+                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#addModal">Add</button> -->
                                 </div>
 
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Caleg</th>
+                                        <th>Kecamatan</th>
                                         <th>Nama Desa</th>
                                         <th>Total Suara</th>
 
@@ -264,6 +268,7 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->caleg }}</td>
+                                            <td>{{ $data->kecamatan }}</td>
                                             <td>{{ $data->desa }}</td>
                                             <td>{{ $data->total }}</td>
                                         </tr>
@@ -280,7 +285,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report</h2>
+            <h2 class="mb-2 page-title">Report Perolehan Suara Per Caleg Berdasarkan Kecamatan</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -310,8 +315,8 @@
                             <!-- table -->
                             <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-5">
                                 <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button>
+                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#addModal">Add</button> -->
                                 </div>
 
                                 <thead>

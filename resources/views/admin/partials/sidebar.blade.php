@@ -47,21 +47,21 @@
 
             <li class="nav-item w-100">
                 <a class="nav-link" href="/kecamatan">
-                    <i class="fe fe-archive fe-16"></i>
+                    <i class="fe fe-clipboard fe-16"></i>
                     <span class="ml-3 item-text">Data Kecamatan</span>
                 </a>
             </li>
 
             <li class="nav-item w-100">
                 <a class="nav-link" href="/desa">
-                    <i class="fe fe-archive fe-16"></i>
+                    <i class="fe fe-copy fe-16"></i>
                     <span class="ml-3 item-text">Data Desa</span>
                 </a>
             </li>
 
             <li class="nav-item w-100">
                 <a class="nav-link" href="/report">
-                    <i class="fe fe-archive fe-16"></i>
+                    <i class="fe fe-activity fe-16"></i>
                     <span class="ml-3 item-text">Report</span>
                 </a>
             </li>

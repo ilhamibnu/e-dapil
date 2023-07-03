@@ -430,9 +430,10 @@ class CalegController extends Controller
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
         ->orderBy('tb_caleg.no_urut', 'asc')
-        ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-        ->groupBy('tb_caleg.name', 'tb_desa.name')
+        ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_desa.name', 'tb_kecamatan.name')
         ->get();
 
         // menampilkan jumlah suara per caleg berdasarkan tps serta nama desa
@@ -443,9 +444,10 @@ class CalegController extends Controller
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
         ->orderBy('tb_caleg.no_urut', 'asc')
-        ->select('tb_caleg.name as caleg', 'tb_detail_tps.name as tps', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-        ->groupBy('tb_caleg.name', 'tb_detail_tps.name', 'tb_desa.name')
+        ->select('tb_caleg.name as caleg', 'tb_detail_tps.name as tps', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_detail_tps.name', 'tb_desa.name', 'tb_kecamatan.name')
         ->get();
 
         // menampilkan jumlah suara per caleg berdasarkan relawan serta nama tps dan desa
@@ -456,9 +458,10 @@ class CalegController extends Controller
         ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
         ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
         ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+        ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
         ->orderBy('tb_caleg.no_urut', 'asc')
-       ->select('tb_caleg.name as caleg', 'tb_detail_relawan.name as relawan', 'tb_detail_tps.name as tps', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-        ->groupBy('tb_caleg.name', 'tb_detail_relawan.name', 'tb_detail_tps.name', 'tb_desa.name')
+       ->select('tb_caleg.name as caleg', 'tb_detail_relawan.name as relawan', 'tb_detail_tps.name as tps', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
+        ->groupBy('tb_caleg.name', 'tb_detail_relawan.name', 'tb_detail_tps.name', 'tb_desa.name', 'tb_kecamatan.name')
         ->get();
 
 
