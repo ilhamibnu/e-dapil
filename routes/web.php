@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CalegController;
-use App\Http\Controllers\KecamatanController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\CalegController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KecamatanController;
+use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,8 @@ Route::put('/detail-pemilih/{id}', [CalegController::class, 'updatedetailpemilih
 Route::delete('/detail-pemilih/{id}', [CalegController::class, 'deletedetailpemilih'])->middleware('IsLogin');
 
 Route::get('/report', [CalegController::class, 'report'])->middleware('IsLogin');
+
+Route::get('/report2', [ReportController::class, 'index'])->middleware('IsLogin');
 
 Route::get('/kecamatan', [KecamatanController::class, 'index'])->middleware('IsLogin');
 Route::post('/kecamatan', [KecamatanController::class, 'store'])->middleware('IsLogin');

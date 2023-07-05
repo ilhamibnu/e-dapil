@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tb_detail_desa', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_caleg')->after('id');
-            $table->foreign('id_caleg')->references('id')->on('tb_caleg');
+            $table->unsignedBigInteger('id_detail_kecamatan')->after('id');
+            $table->foreign('id_detail_kecamatan')->references('id')->on('tb_detail_kecamatan');
         });
     }
 
@@ -23,8 +23,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tb_detail_desa', function (Blueprint $table) {
-            $table->dropForeign(['id_caleg']);
-            $table->dropColumn('id_caleg');
+            $table->dropForeign(['id_detail_kecamatan']);
+            $table->dropColumn('id_detail_kecamatan');
         });
     }
 };

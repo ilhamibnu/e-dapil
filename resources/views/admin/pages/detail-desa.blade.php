@@ -15,7 +15,7 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
-                           
+
                             @if($errors->any())
                                 <div class="alert alert-danger alert-dismissible fade show">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -118,8 +118,8 @@
                                                             <div hidden class="form-group">
                                                                 <label for="recipient-name" class="col-form-label">Nama
                                                                 </label>
-                                                                <input type="text" value="{{ $caleg->id }}"
-                                                                    name="id_caleg" class="form-control"
+                                                                <input type="text" value="{{ $detailkecamatan->id }}"
+                                                                    name="id_detail_kecamatan" class="form-control"
                                                                     id="recipient-name" required>
                                                             </div>
                                                             <div class="form-group">
@@ -170,8 +170,9 @@
                                                 <div hidden class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Nama
                                                     </label>
-                                                    <input type="text" value="{{ $caleg->id }}" name="id_caleg"
-                                                        class="form-control" id="recipient-name" required>
+                                                    <input type="text" value="{{ $detailkecamatan->id }}"
+                                                        name="id_detail_kecamatan" class="form-control"
+                                                        id="recipient-name" required>
                                                 </div>
 
                                                 <div class="form-group">

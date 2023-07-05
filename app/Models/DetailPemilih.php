@@ -15,7 +15,6 @@ class DetailPemilih extends Model
         'name',
         'alamat',
         'id_detail_relawan',
-        'id_caleg',
     ];
 
     public function detailRelawan()
@@ -23,9 +22,5 @@ class DetailPemilih extends Model
         return $this->belongsTo(DetailRelawan::class, 'id_detail_relawan', 'id');
     }
 
-    public function caleg()
-    {
-        return $this->belongsTo(Caleg::class, 'id_caleg', 'id');
-    }
     
 }

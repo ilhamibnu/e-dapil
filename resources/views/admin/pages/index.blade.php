@@ -48,8 +48,7 @@ Dashboard
 
 @section('script')
 <script>
-    var datapenghasilan = <?php echo json_encode($namacaleg) ?>;
-    var datatanggal = <?php echo json_encode($jumlahsuara) ?>;
+
 
     var lineChart,
         lineChartoptions = {

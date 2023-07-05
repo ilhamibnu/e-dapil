@@ -16,23 +16,8 @@ class Caleg extends Model
         'foto',
     ];
 
-    public function detailDesa()
-    {
-        return $this->hasMany(DetailDesa::class, 'id_caleg', 'id');
+    public function detailkecamatan(){
+        return $this->hasMany(DetailKecamatan::class, 'id_caleg', 'id');
     }
 
-    public function detailTps()
-    {
-        return $this->hasMany(DetailTps::class, 'id_caleg', 'id');
-    }
-
-    public function detailRelawan()
-    {
-        return $this->hasMany(DetailRelawan::class, 'id_caleg', 'id');
-    }
-
-    public function suara()
-    {
-        return $this->hasMany(Suara::class, 'id_caleg', 'id');
-    }
 }

@@ -14,18 +14,11 @@ class DetailTps extends Model
     protected $fillable = [
         'name',
         'id_detail_desa',
-        'id_caleg',
     ];
 
     public function detailDesa()
     {
         return $this->belongsTo(DetailDesa::class, 'id_detail_desa', 'id');
-    }
-
-
-    public function caleg()
-    {
-        return $this->belongsTo(Caleg::class, 'id_caleg', 'id');
     }
 
     public function detailRelawan()

@@ -59,10 +59,17 @@
                 </a>
             </li>
 
-            <li class="nav-item w-100">
+            <!-- <li class="nav-item w-100">
                 <a class="nav-link" href="/report">
                     <i class="fe fe-activity fe-16"></i>
                     <span class="ml-3 item-text">Report</span>
+                </a>
+            </li> -->
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/report2">
+                    <i class="fe fe-activity fe-16"></i>
+                    <span class="ml-3 item-text">Report 2</span>
                 </a>
             </li>
 

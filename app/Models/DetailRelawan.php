@@ -15,17 +15,11 @@ class DetailRelawan extends Model
         'name',
         'alamat',
         'id_detail_tps',
-        'id_caleg',
     ];
 
     public function detailTps()
     {
         return $this->belongsTo(DetailTps::class, 'id_detail_tps', 'id');
-    }
-
-    public function caleg()
-    {
-        return $this->belongsTo(Caleg::class, 'id_caleg', 'id');
     }
 
     public function detailPemilih()

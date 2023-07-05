@@ -21,6 +21,11 @@ class DetailKecamatan extends Model
         return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
     }
 
+    public function detailDesa()
+    {
+        return $this->hasMany(DetailDesa::class, 'id_detail_kecamatan', 'id');
+    }
+
     public function caleg()
     {
         return $this->belongsTo(Caleg::class, 'id_caleg', 'id');

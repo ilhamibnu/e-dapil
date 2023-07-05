@@ -8,21 +8,23 @@ use App\Models\Kecamatan;
 
 class DesaController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $kecamatan = Kecamatan::all();
         $desa = Desa::with('kecamatan')->get();
-        return view('admin.pages.desa',[
+        return view('admin.pages.desa', [
             'kecamatan' => $kecamatan,
             'desa' => $desa,
         ]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $request->validate([
             'name' => 'required',
             'id_kecamatan' => 'required',
-        ],[
+        ], [
             'name.required' => 'Nama Desa tidak boleh kosong',
             'id_kecamatan.required' => 'Kecamatan tidak boleh kosong',
         ]);
@@ -34,12 +36,13 @@ class DesaController extends Controller
         return redirect('/desa')->with('create', 'Data Desa berhasil ditambahkan');
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         $request->validate([
             'name' => 'required',
             'id_kecamatan' => 'required',
-        ],[
+        ], [
             'name.required' => 'Nama Desa tidak boleh kosong',
             'id_kecamatan.required' => 'Kecamatan tidak boleh kosong',
         ]);
@@ -51,7 +54,8 @@ class DesaController extends Controller
         return redirect('/desa')->with('update', 'Data Desa berhasil diubah');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $desa = Desa::find($id);
         $desa->delete();
         return redirect('/desa')->with('delete', 'Data Desa berhasil dihapus');
