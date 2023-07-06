@@ -43,6 +43,8 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
+                                        <th>TPS</th>
+                                        <th>Desa</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -55,6 +57,8 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->alamat }}</td>
+                                        <td>{{ $data->tps }}</td>
+                                        <td>{{ $data->desa }}</td>
                                         <td>
 
                                             <!-- <a href="/paket/{{ $data->id }}"
@@ -106,9 +110,23 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
+
+                                                        <div class="form-group">
+                                                            <label for="example-select">TPS</label>
+                                                            <select name="id_tps" class="form-control" id="example-select">
+                                                                <option selected value="{{ $data->id_tps }}">
+                                                                    {{ $data->tps }} - {{ $data->desa }}</option>
+                                                                @foreach ($tps as $data)
+                                                                <option value="{{ $data->id }}">
+                                                                    {{ $data->name }} - {{ $data->desa->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+
                                                         <div class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Nama
-                                                                Kecamatan
+
                                                             </label>
                                                             <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name">
                                                         </div>
@@ -148,9 +166,23 @@
                                             @csrf
                                             @method('POST')
                                             <div class="modal-body">
+
+                                                <div class="form-group">
+                                                    <label for="example-select">TPS</label>
+                                                    <select name="id_tps" class="form-control" id="example-select">
+                                                        <option selected value="">
+                                                            Pilih TPS</option>
+                                                        @foreach ($tps as $data)
+                                                        <option value="{{ $data->id }}">
+                                                            {{ $data->name }} - {{ $data->desa->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+
                                                 <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Nama
-                                                        Kecamatan
+
                                                     </label>
                                                     <input type="text" value="" name="name" class="form-control" id="recipient-name">
                                                 </div>

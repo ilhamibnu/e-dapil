@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tps;
+use App\Models\Desa;
 use Illuminate\Http\Request;
 
 
@@ -10,9 +11,11 @@ class TpsController extends Controller
 {
     public function index()
     {
-        $tps = Tps::all();
+        $desa = Desa::all();
+        $tps = Tps::with('desa')->get();
         return view('admin.pages.tps', [
-            'tps' => $tps
+            'tps' => $tps,
+            'desa' => $desa,
         ]);
     }
 
@@ -20,11 +23,13 @@ class TpsController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'id_desa' => 'required',
         ], [
             'name.required' => 'Nama TPS harus diisi!',
         ]);
 
         Tps::create([
+            'id_desa' => $request->id_desa,
             'name' => $request->name,
         ]);
 
@@ -35,11 +40,13 @@ class TpsController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'id_desa' => 'required',
         ], [
             'name.required' => 'Nama TPS harus diisi!',
         ]);
 
         $update = Tps::find($id);
+        $update->id_desa = $request->id_desa;
         $update->name = $request->name;
         $update->save();
 
