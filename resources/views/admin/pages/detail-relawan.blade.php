@@ -55,8 +55,7 @@
                                     @foreach ($detailrelawan as $data)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->alamat }}</td>
+                                        <td>{{ $data->relawan }}</td>
                                         <td>
 
                                             <a href="/detail-pemilih/{{ $data->id }}" class="btn btn-success btn-sm">Detail</a>
@@ -109,19 +108,15 @@
                                                     <div class="modal-body">
 
                                                         <div class="form-group">
-
-                                                            <label for="recipient-name" class="col-form-label">Nama
-                                                                Relawan
-                                                            </label>
-                                                            <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name" required>
+                                                            <label for="example-select">Relawan</label>
+                                                            <select name="id_relawan" class="form-control" id="example-select">
+                                                                <option selected value="{{ $data->id_relawan }}">{{ $data->relawan }}</option>
+                                                                @foreach($datarelawan as $data )
+                                                                <option value="{{ $data->id }}">{{ $data->name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
-                                                        <div class="form-group">
-
-                                                            <label for="recipient-name" class="col-form-label">Alamat
-                                                            </label>
-                                                            <textarea class="form-control" name="alamat" cols="30" rows="10">{{ $data->alamat }}</textarea>
-                                                        </div>
-
                                                         <div hidden class="form-group">
                                                             <label for="recipient-name" class="col-form-label">Nama
                                                             </label>
@@ -158,13 +153,15 @@
                                             @method('POST')
                                             <div class="modal-body">
 
-
                                                 <div class="form-group">
-
-                                                    <label for="recipient-name" class="col-form-label">Nama
-                                                        Relawan
-                                                    </label>
-                                                    <input type="text" value="" name="name" class="form-control" id="recipient-name" required>
+                                                    <label for="example-select">Relawan</label>
+                                                    <select name="id_relawan" class="form-control" id="example-select">
+                                                        <option selected disabled>Pilih TPS</option>
+                                                        @foreach($datarelawan as $data )
+                                                        <option value="{{ $data->id }}">{{ $data->name }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
 
                                                 <div class="form-group">

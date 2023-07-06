@@ -53,7 +53,7 @@
                                     @foreach($detailtps as $data)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $data->name }}</td>
+                                        <td>{{ $data->tps }}</td>
                                         <td>
 
                                             <a href="/detail-relawan/{{ $data->id }}" class="btn btn-success btn-sm">Detail</a>
@@ -104,12 +104,16 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
-                                                        <div class="form-group">
 
-                                                            <label for="recipient-name" class="col-form-label">Nama
-                                                                TPS
-                                                            </label>
-                                                            <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name" required>
+                                                        <div class="form-group">
+                                                            <label for="example-select">TPS</label>
+                                                            <select name="id_tps" class="form-control" id="example-select">
+                                                                <option selected value="{{ $data->id_tps }}">{{ $data->tps }}</option>
+                                                                @foreach($datatps as $data )
+                                                                <option value="{{ $data->id }}">{{ $data->name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
 
                                                         <div hidden class="form-group">
@@ -149,10 +153,14 @@
                                             <div class="modal-body">
 
                                                 <div class="form-group">
-
-                                                    <label for="recipient-name" class="col-form-label">Nama TPS
-                                                    </label>
-                                                    <input type="text" value="" name="name" class="form-control" id="recipient-name" required>
+                                                    <label for="example-select">TPS</label>
+                                                    <select name="id_tps" class="form-control" id="example-select">
+                                                        <option selected disabled>Pilih TPS</option>
+                                                        @foreach($datatps as $data )
+                                                        <option value="{{ $data->id }}">{{ $data->name }}
+                                                        </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
 
                                                 <div hidden class="form-group">

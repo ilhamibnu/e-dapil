@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tps;
 use App\Models\Desa;
 use App\Models\Caleg;
 use App\Models\DetailTps;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\DetailPemilih;
 use App\Models\DetailRelawan;
 use App\Models\DetailKecamatan;
+use App\Models\Relawan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
@@ -227,6 +229,7 @@ class CalegController extends Controller
     {
 
         $datadesa = DetailDesa::find($id);
+        $datatps = Tps::where('id_desa', $datadesa->id_desa)->get();
 
         $id_desa = $datadesa->id;
         $id_detail_kecamatan = $datadesa->id_detail_kecamatan;
@@ -237,7 +240,8 @@ class CalegController extends Controller
             ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
             ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
             ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-            ->select('tb_detail_tps.*', 'tb_caleg.name as caleg')
+            ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+            ->select('tb_detail_tps.*', 'tb_caleg.name as caleg', 'tb_tps.name as tps', 'tb_tps.id as id_tps')
             ->where('tb_detail_desa.id_detail_kecamatan', '=', $id_detail_kecamatan)
             ->where('tb_detail_desa.id', '=', $id_desa)
             ->get();
@@ -247,19 +251,20 @@ class CalegController extends Controller
             // 'caleg' => $caleg,
             'datadesa' => $datadesa,
             'detailtps' => $detailtps,
+            'datatps' => $datatps,
         ]);
     }
 
     public function storedetailtps(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'id_tps' => 'required',
         ], [
-            'name.required' => 'Nama TPS tidak boleh kosong',
+            'id_tps.required' => 'TPS tidak boleh kosong',
         ]);
 
         $detailtps = new DetailTps;
-        $detailtps->name = $request->name;
+        $detailtps->id_tps = $request->id_tps;
         $detailtps->id_detail_desa = $request->id_detail_desa;
         $detailtps->save();
         return redirect()->back()->with('create', 'Data Detail TPS berhasil ditambahkan');
@@ -268,13 +273,13 @@ class CalegController extends Controller
     public function updatedetailtps(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'id_tps' => 'required',
         ], [
-            'name.required' => 'Nama TPS tidak boleh kosong',
+            'id_tps.required' => 'TPS tidak boleh kosong',
         ]);
 
         $detailtps = DetailTps::find($id);
-        $detailtps->name = $request->name;
+        $detailtps->id_tps = $request->id_tps;
         $detailtps->id_detail_desa = $request->id_detail_desa;
         $detailtps->save();
         return redirect()->back()->with('update', 'Data Detail TPS berhasil diubah');
@@ -294,7 +299,9 @@ class CalegController extends Controller
 
         $datatps = DetailTps::find($id);
         $id_tps = $datatps->id;
+        $idtps = $datatps->id_tps;
 
+        $datarelawan = Relawan::where('id_tps', $idtps)->get();
 
         $datadesa = DetailDesa::find($datatps->id_detail_desa);
         $id_desa = $datadesa->id;
@@ -310,7 +317,8 @@ class CalegController extends Controller
             ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
             ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
             ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-            ->select('tb_detail_relawan.*', 'tb_caleg.name as caleg')
+            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+            ->select('tb_detail_relawan.*', 'tb_caleg.name as caleg', 'tb_relawan.id as id_relawan', 'tb_relawan.name as relawan')
             ->where('tb_detail_tps.id', '=', $id_tps)
             ->where('tb_detail_desa.id', '=', $id_desa)
             ->where('tb_detail_kecamatan.id', '=', $id_kecamatan)
@@ -319,6 +327,7 @@ class CalegController extends Controller
         return view('admin.pages.detail-relawan', [
             'datatps' => $datatps,
             'detailrelawan' => $detailrelawan,
+            'datarelawan' => $datarelawan,
 
         ]);
     }
@@ -326,16 +335,14 @@ class CalegController extends Controller
     public function storedetailrelawan(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'alamat' => 'required',
+            'id_relawan' => 'required',
+
         ], [
-            'name.required' => 'Nama Relawan tidak boleh kosong',
-            'alamat.required' => 'Alamat Relawan tidak boleh kosong',
+            'id_relawan.required' => 'Nama Relawan tidak boleh kosong',
         ]);
 
         $detailrelawan = new DetailRelawan;
-        $detailrelawan->name = $request->name;
-        $detailrelawan->alamat = $request->alamat;
+        $detailrelawan->id_relawan = $request->id_relawan;
         $detailrelawan->id_detail_tps = $request->id_detail_tps;
         $detailrelawan->save();
 
@@ -347,16 +354,13 @@ class CalegController extends Controller
     public function updatedetailrelawan(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'alamat' => 'required',
+            'id_relawan' => 'required',
         ], [
-            'name.required' => 'Nama Relawan tidak boleh kosong',
-            'alamat.required' => 'Alamat Relawan tidak boleh kosong',
+            'id_relawan.required' => 'Nama Relawan tidak boleh kosong',
         ]);
 
         $detailrelawan = DetailRelawan::find($id);
-        $detailrelawan->name = $request->name;
-        $detailrelawan->alamat = $request->alamat;
+        $detailrelawan->id_relawan = $request->id_relawan;
         $detailrelawan->id_detail_tps = $request->id_detail_tps;
         $detailrelawan->save();
         return redirect()->back()->with('update', 'Data Detail Relawan berhasil diubah');
