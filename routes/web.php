@@ -57,8 +57,8 @@ Route::put('/detail-pemilih/{id}', [CalegController::class, 'updatedetailpemilih
 Route::delete('/detail-pemilih/{id}', [CalegController::class, 'deletedetailpemilih'])->middleware('IsLogin');
 
 Route::get('/report', [CalegController::class, 'report'])->middleware('IsLogin');
-
-Route::get('/report2', [ReportController::class, 'index'])->middleware('IsLogin');
+Route::get('/report3/{id}', [CalegController::class, 'report2'])->middleware('IsLogin');
+Route::get('/report4/{id}', [CalegController::class, 'report3'])->middleware('IsLogin');
 
 Route::get('/kecamatan', [KecamatanController::class, 'index'])->middleware('IsLogin');
 Route::post('/kecamatan', [KecamatanController::class, 'store'])->middleware('IsLogin');

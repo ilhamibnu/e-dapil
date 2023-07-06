@@ -6,9 +6,7 @@
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="/dashboard">
-                <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
-                    xml:space="preserve">
+                <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
                     <g>
                         <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
                         <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />
@@ -67,13 +65,13 @@
             </li> -->
 
             <li class="nav-item w-100">
-                <a class="nav-link" href="/report2">
+                <a class="nav-link" href="/report">
                     <i class="fe fe-activity fe-16"></i>
-                    <span class="ml-3 item-text">Report 2</span>
+                    <span class="ml-3 item-text">Report</span>
                 </a>
             </li>
 
-            <!--             
+            <!--
             <li class="nav-item w-100">
                 <a class="nav-link" href="/datauser">
                     <i class="fe fe-user fe-16"></i>
@@ -88,7 +86,7 @@
                 </a>
             </li>
 
-          
+
             <li class="nav-item w-100">
                 <a class="nav-link" href="/datareservasi">
                     <i class="fe fe-bar-chart-2 fe-16"></i>

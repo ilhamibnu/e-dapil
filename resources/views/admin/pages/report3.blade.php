@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report Perolehan Suara Per Kecamatan</h2>
+            <h2 class="mb-2 page-title">Report Perolehan Suara Per Desa</h2>
             {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
                     built upon the foundations of progressive enhancement, that adds all of these advanced features to any
                     HTML table. </p> --}}
@@ -43,8 +43,8 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Caleg</th>
-                                        @foreach($ambilkecamatan as $datakecamatan)
-                                        <th><a href="/report3/{{ $datakecamatan->id }}">{{ $datakecamatan->name }}</a></th>
+                                        @foreach($ambildesa as $datadesa)
+                                        <th><a href="/report4/{{ $datadesa->id }}">{{ $datadesa->name }}</a></th>
                                         @endforeach
 
                                     </tr>
@@ -54,7 +54,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $datacaleg->name }}</td>
-                                        @foreach($ambilkecamatan as $datakecamatan)
+                                        @foreach($ambildesa as $datadesa)
                                         <td>
                                             <?php
                                             $ambiljumlahsuara = DB::table('tb_detail_pemilih')
@@ -66,7 +66,7 @@
                                             ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                                             ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
                                             ->where('tb_caleg.id', '=', $datacaleg->id)
-                                            ->where('tb_kecamatan.id', '=', $datakecamatan->id)
+                                            ->where('tb_desa.id', '=', $datadesa->id)
                                             ->count();
                                             ?>
                                             {{ $ambiljumlahsuara }}

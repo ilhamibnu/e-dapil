@@ -450,83 +450,65 @@ class CalegController extends Controller
         return redirect()->back()->with('delete', 'Data Detail Pemilih berhasil dihapus');
     }
 
-    // // report
+    public function report()
+    {
+        // perolehan jumlah surat suara per caleg berdasarkan kecamatan
 
-    // public function report(){
-    //     // menampilkan jumlah suara per caleg berdasarkan kecamatan
+        $bykecamatan = DB::table('tb_detail_pemilih')
+            ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_caleg.name as caleg', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_pemilih.id) as total'))
+            ->groupBy('tb_caleg.name')
+            ->groupBy('tb_kecamatan.name')
+            ->get();
 
-    //     $bykecamatan = DB::table('tb_detail_pemilih')
-    //     ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-    //     ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
-    //     ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-    //     ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
-    //     ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
-    //     ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
-    //     ->orderBy('tb_caleg.no_urut', 'asc')
-    //     ->select('tb_caleg.name as caleg', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-    //     ->groupBy('tb_caleg.name', 'tb_kecamatan.name')
-    //     ->get();
+        $ambilkecamatan = Kecamatan::all();
+        $ambilcaleg = Caleg::all();
 
-    //     // menampilkan jumlah suara per caleg berdasarkan desa
+        return view('admin.pages.report2', [
+            'bykecamatan' => $bykecamatan,
+            'ambilkecamatan' => $ambilkecamatan,
+            'ambilcaleg' => $ambilcaleg,
+        ]);
+    }
 
-    //     $bydesa = DB::table('tb_detail_pemilih')
-    //     ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-    //     ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
-    //     ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-    //     ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
-    //     ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
-    //     ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
-    //     ->orderBy('tb_caleg.no_urut', 'asc')
-    //     ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-    //     ->groupBy('tb_caleg.name', 'tb_desa.name', 'tb_kecamatan.name')
-    //     ->get();
+    public function report2($id)
+    {
 
-    //     // menampilkan jumlah suara per caleg berdasarkan tps serta nama desa
+        // perolehan jumlah suara per caleg berdasarkan desa
 
-    //     $bytps = DB::table('tb_detail_pemilih')
-    //     ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-    //     ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
-    //     ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-    //     ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
-    //     ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
-    //     ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
-    //     ->orderBy('tb_caleg.no_urut', 'asc')
-    //     ->select('tb_caleg.name as caleg', 'tb_detail_tps.name as tps', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-    //     ->groupBy('tb_caleg.name', 'tb_detail_tps.name', 'tb_desa.name', 'tb_kecamatan.name')
-    //     ->get();
+        $bydesa = DB::table('tb_detail_pemilih')
+            ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id) as total'))
+            ->groupBy('tb_caleg.name')
+            ->groupBy('tb_desa.name')
+            ->where('tb_kecamatan.id', '=', $id)
+            ->get();
 
-    //     // menampilkan jumlah suara per caleg berdasarkan relawan serta nama tps dan desa
+        $ambildesa = Desa::where('id_kecamatan', '=', $id)->get();
+        $ambilcaleg = Caleg::all();
+        $idkecamatan = $id;
 
-    //     $byrelawan = DB::table('tb_detail_pemilih')
-    //     ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-    //     ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
-    //     ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-    //     ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
-    //     ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
-    //     ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
-    //     ->orderBy('tb_caleg.no_urut', 'asc')
-    //    ->select('tb_caleg.name as caleg', 'tb_detail_relawan.name as relawan', 'tb_detail_tps.name as tps', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-    //     ->groupBy('tb_caleg.name', 'tb_detail_relawan.name', 'tb_detail_tps.name', 'tb_desa.name', 'tb_kecamatan.name')
-    //     ->get();
+        return view('admin.pages.report3', [
+            'bydesa' => $bydesa,
+            'ambildesa' => $ambildesa,
+            'ambilcaleg' => $ambilcaleg,
+            'idkecamatan' => $idkecamatan,
+        ]);
+    }
 
-
-    //     // menampilkan jumlah suara per caleg berdasarkan pemilih
-
-
-    //     $bypemilih = DB::table('tb_detail_pemilih')
-    //     ->join('tb_caleg', 'tb_detail_pemilih.id_caleg', '=', 'tb_caleg.id')
-    //     ->orderBy('tb_caleg.no_urut', 'asc')
-    //     ->select('tb_caleg.name as caleg', 'tb_detail_pemilih.name as pemilih', DB::raw('count(tb_detail_pemilih.id_caleg) as total'))
-    //     ->groupBy('tb_caleg.name')
-    //     ->get();
-
-    //     return view('admin.pages.report',[
-    //         'bykecamatan' => $bykecamatan,
-    //         'bydesa' => $bydesa,
-    //         'bytps' => $bytps,
-    //         'byrelawan' => $byrelawan,
-    //         'bypemilih' => $bypemilih,
-    //     ]);
-
-    // }
+    public function report3($id)
+    {
+    }
 }
