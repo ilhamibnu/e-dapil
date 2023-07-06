@@ -14,6 +14,7 @@ class DetailTps extends Model
     protected $fillable = [
         'name',
         'id_detail_desa',
+        'id_tps'
     ];
 
     public function detailDesa()
@@ -24,6 +25,11 @@ class DetailTps extends Model
     public function detailRelawan()
     {
         return $this->hasMany(DetailRelawan::class, 'id_detail_tps', 'id');
+    }
+
+    public function tps()
+    {
+        return $this->belongsTo(Tps::class, 'id_tps', 'id');
     }
 
 

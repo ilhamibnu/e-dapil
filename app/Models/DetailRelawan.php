@@ -15,6 +15,7 @@ class DetailRelawan extends Model
         'name',
         'alamat',
         'id_detail_tps',
+        'id_relawan'
     ];
 
     public function detailTps()
@@ -25,5 +26,10 @@ class DetailRelawan extends Model
     public function detailPemilih()
     {
         return $this->hasMany(DetailPemilih::class, 'id_detail_relawan', 'id');
+    }
+
+    public function relawan()
+    {
+        return $this->belongsTo(Relawan::class, 'id_relawan', 'id');
     }
 }

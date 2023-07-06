@@ -57,6 +57,20 @@
                 </a>
             </li>
 
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/tps">
+                    <i class="fe fe-copy fe-16"></i>
+                    <span class="ml-3 item-text">Data TPS</span>
+                </a>
+            </li>
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/relawan">
+                    <i class="fe fe-copy fe-16"></i>
+                    <span class="ml-3 item-text">Data Relawan</span>
+                </a>
+            </li>
+
             <!-- <li class="nav-item w-100">
                 <a class="nav-link" href="/report">
                     <i class="fe fe-activity fe-16"></i>

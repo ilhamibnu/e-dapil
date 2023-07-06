@@ -7,7 +7,8 @@ use App\Http\Controllers\CalegController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
+use App\Http\Controllers\RelawanController;
+use App\Http\Controllers\TpsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,3 +70,13 @@ Route::get('/desa', [DesaController::class, 'index'])->middleware('IsLogin');
 Route::post('/desa', [DesaController::class, 'store'])->middleware('IsLogin');
 Route::put('/desa/{id}', [DesaController::class, 'update'])->middleware('IsLogin');
 Route::delete('/desa/{id}', [DesaController::class, 'delete'])->middleware('IsLogin');
+
+Route::get('/tps', [TpsController::class, 'index'])->middleware('IsLogin');
+Route::post('/tps', [TpsController::class, 'store'])->middleware('IsLogin');
+Route::put('/tps/{id}', [TpsController::class, 'update'])->middleware('IsLogin');
+Route::delete('/tps/{id}', [TpsController::class, 'delete'])->middleware('IsLogin');
+
+Route::get('/relawan', [RelawanController::class, 'index'])->middleware('IsLogin');
+Route::post('/relawan', [RelawanController::class, 'store'])->middleware('IsLogin');
+Route::put('/relawan/{id}', [RelawanController::class, 'update'])->middleware('IsLogin');
+Route::delete('/relawan/{id}', [RelawanController::class, 'delete'])->middleware('IsLogin');
