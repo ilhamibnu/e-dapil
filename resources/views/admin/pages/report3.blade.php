@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Report')
+@section('title', 'Report Perolehan Suara Per Desa')
 
 @section('content')
 <div class="container-fluid">

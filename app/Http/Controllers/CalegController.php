@@ -16,6 +16,7 @@ use App\Models\Relawan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
+
 class CalegController extends Controller
 {
 
@@ -631,6 +632,97 @@ class CalegController extends Controller
             'ambiltps' => $ambiltps,
             'ambilcaleg' => $ambilcaleg,
             'iddesa' => $iddesa,
+        ]);
+    }
+
+    public function indexreportpemilih()
+    {
+        $datacaleg = Caleg::all();
+        $datakecamatan = Kecamatan::all();
+        $datadesa = Desa::all();
+
+        $test = DB::table('tb_detail_pemilih')
+            ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+            ->where('tb_caleg.id', '=', 0)
+            ->where('tb_kecamatan.id', '=', 0)
+            ->where('tb_desa.id', '=', 0)
+            ->get();
+
+        return view('admin.pages.report-pemilih', [
+            'datakecamatan' => $datakecamatan,
+            'datadesa' => $datadesa,
+            'datacaleg' => $datacaleg,
+            'datapemilih' => $test,
+        ]);
+    }
+
+    public function reportpemilih(Request $request)
+    {
+        $request->validate([
+            'id_caleg' => 'required',
+            'id_kecamatan' => 'required',
+        ], [
+            'id_caleg.required' => 'Pilih Caleg',
+            'id_kecamatan.required' => 'Pilih Kecamatan',
+        ]);
+
+        $id_caleg = $request->id_caleg;
+        $id_kecamatan = $request->id_kecamatan;
+        $id_desa = $request->id_desa;
+
+
+        if ($id_desa == null) {
+
+            $datapemilih = DB::table('tb_detail_pemilih')
+                ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+                ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+                ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+                ->where('tb_caleg.id', '=', $id_caleg)
+                ->where('tb_kecamatan.id', '=', $id_kecamatan)
+                ->get();
+        } else {
+            $datapemilih = DB::table('tb_detail_pemilih')
+                ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+                ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+                ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+                ->where('tb_caleg.id', '=', $id_caleg)
+                ->where('tb_kecamatan.id', '=', $id_kecamatan)
+                ->where('tb_desa.id', '=', $id_desa)
+                ->get();
+        }
+
+        $datacaleg = Caleg::all();
+        $datakecamatan = Kecamatan::all();
+        $datadesa = Desa::all();
+
+        return view('admin.pages.report-pemilih', [
+            'datapemilih' => $datapemilih,
+            'datacaleg' => $datacaleg,
+            'datakecamatan' => $datakecamatan,
+            'datadesa' => $datadesa,
         ]);
     }
 }

@@ -1,17 +1,13 @@
 @extends('admin.layout.main')
 
-@section('title', 'Report Perolehan Suara Per TPS')
+@section('title', 'Report Pemilih')
 
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
-            <h2 class="mb-2 page-title">Report Perolehan Suara Per TPS</h2>
-            {{-- <p class="card-text">DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool,
-                    built upon the foundations of progressive enhancement, that adds all of these advanced features to any
-                    HTML table. </p> --}}
+            <h2 class="mb-2 page-title">Report Pemilih</h2>
             <div class="row my-4">
-                <!-- Small table -->
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
@@ -32,49 +28,73 @@
                                 @endforeach
                             </div>
                             @endif
+                            <div class="card card-shadow row items-align-baseline mt-5 mb-5">
+                                <form action="report-pemilih" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="form-group">
+                                        <label for="example-select">Caleg</label>
+                                        <select name="id_caleg" class="form-control" id="example-select">
+                                            <option selected value="">Pilih Caleg</option>
+                                            @foreach ($datacaleg as $data)
+                                            <option value="{{ $data->id }}">
+                                                {{ $data->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-select">Kecamatan</label>
+                                        <select name="id_kecamatan" class="form-control" id="example-select">
+                                            <option selected value="">Pilih Kecamatan</option>
+                                            @foreach ($datakecamatan as $data)
+                                            <option value="{{ $data->id }}">
+                                                {{ $data->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="example-select">Desa</label>
+                                        <select name="id_desa" class="form-control" id="example-select">
+                                            <option selected value="">
+                                                Pilih Desa</option>
+
+                                            @foreach ($datadesa as $data)
+                                            <option value="{{ $data->id }}">
+                                                {{ $data->name }}</option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                    <div class="text-center aligment-center">
+                                        <button class="btn btn-success btn-sm" type="submit">Cari</button>
+                                    </div>
+
+                                </form>
+                            </div>
                             <!-- table -->
                             <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-1">
                                 <div class="align-right text-right mb-3">
-                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button> -->
                                 </div>
-
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Nama Caleg</th>
-                                        @foreach($ambiltps as $datatps)
-                                        <th><a href="/report5/{{ $datatps->id }}">{{ $datatps->name }}</a></th>
-                                        @endforeach
-
+                                        <th>Nama Pemilih</th>
+                                        <th>Alamat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($ambilcaleg as $datacaleg)
+                                    <?php $no = 1; ?>
+                                    @foreach ($datapemilih as $data)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $datacaleg->name }}</td>
-                                        @foreach($ambiltps as $datatps)
-                                        <td>
-                                            <?php
-                                            $ambiljumlahsuara = DB::table('tb_detail_pemilih')
-                                            ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
-                                            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
-                                            ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
-                                            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
-                                            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
-                                            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
-                                            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
-                                            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                                            ->where('tb_caleg.id', '=', $datacaleg->id)
-                                            ->where('tb_tps.id', '=', $datatps->id)
-                                            ->count();
-                                            ?>
-                                            {{ $ambiljumlahsuara }}
-                                        </td>
-                                        @endforeach
+                                        <td>{{ $no++ }}</td>
+                                        <td>{{ $data->pemilih }}</td>
+                                        <td>{{ $data->alamat }}</td>
                                     </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>

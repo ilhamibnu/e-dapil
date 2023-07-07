@@ -22,20 +22,6 @@
                     <span class="ml-3 item-text">Home</span>
                 </a>
             </li>
-
-            <!-- <li class="nav-item w-100">
-                <a class="nav-link" href="/checkin2">
-                    <i class="fe fe-home fe-16"></i>
-                    <span class="ml-3 item-text">Checkin Ticket</span>
-                </a>
-            </li>
-
-            <li class="nav-item w-100">
-                <a class="nav-link" href="/paket">
-                    <i class="fe fe-archive fe-16 "></i>
-                    <span class="ml-3 item-text">Data Paket</span>
-                </a>
-            </li> -->
             <li class="nav-item w-100">
                 <a class="nav-link" href="/caleg">
                     <i class="fe fe-users fe-16"></i>
@@ -59,25 +45,17 @@
 
             <li class="nav-item w-100">
                 <a class="nav-link" href="/tps">
-                    <i class="fe fe-copy fe-16"></i>
+                    <i class="fe fe-gift fe-16"></i>
                     <span class="ml-3 item-text">Data TPS</span>
                 </a>
             </li>
 
             <li class="nav-item w-100">
                 <a class="nav-link" href="/relawan">
-                    <i class="fe fe-copy fe-16"></i>
+                    <i class="fe fe-user-check fe-16"></i>
                     <span class="ml-3 item-text">Data Relawan</span>
                 </a>
             </li>
-
-            <!-- <li class="nav-item w-100">
-                <a class="nav-link" href="/report">
-                    <i class="fe fe-activity fe-16"></i>
-                    <span class="ml-3 item-text">Report</span>
-                </a>
-            </li> -->
-
             <li class="nav-item w-100">
                 <a class="nav-link" href="/report">
                     <i class="fe fe-activity fe-16"></i>
@@ -87,34 +65,16 @@
 
             <li class="nav-item w-100">
                 <a class="nav-link" href="/report5">
-                    <i class="fe fe-activity fe-16"></i>
+                    <i class="fe fe-bar-chart-2 fe-16"></i>
                     <span class="ml-3 item-text">Report Jumlah Relawan</span>
                 </a>
             </li>
-
-            <!--
             <li class="nav-item w-100">
-                <a class="nav-link" href="/datauser">
-                    <i class="fe fe-user fe-16"></i>
-                    <span class="ml-3 item-text">Data User</span>
+                <a class="nav-link" href="/report-pemilih">
+                    <i class="fe fe-bar-chart fe-16"></i>
+                    <span class="ml-3 item-text">Report Pemilih</span>
                 </a>
             </li>
-
-            <li class="nav-item w-100">
-                <a class="nav-link" href="/dataproduct">
-                    <i class="fe fe-share fe-16"></i>
-                    <span class="ml-3 item-text">Data Product</span>
-                </a>
-            </li>
-
-
-            <li class="nav-item w-100">
-                <a class="nav-link" href="/datareservasi">
-                    <i class="fe fe-bar-chart-2 fe-16"></i>
-                    <span class="ml-3 item-text">Data Reservasi</span>
-                </a>
-            </li>  -->
-
         </ul>
     </nav>
 </aside>
