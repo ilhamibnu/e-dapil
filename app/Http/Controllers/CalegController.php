@@ -544,4 +544,93 @@ class CalegController extends Controller
             'iddesa' => $iddesa,
         ]);
     }
+
+    public function report4()
+    {
+        // jumlah relawan per caleg berdasarkan kecamatan
+
+        $bykecamatan = DB::table('tb_detail_relawan')
+            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_caleg.name as caleg', 'tb_kecamatan.name as kecamatan', DB::raw('count(tb_detail_relawan.id) as total'))
+            ->groupBy('tb_caleg.name')
+            ->groupBy('tb_kecamatan.name')
+            ->get();
+
+        $ambilkecamatan = Kecamatan::all();
+        $ambilcaleg = Caleg::all();
+
+        return view('admin.pages.report5', [
+            'bykecamatan' => $bykecamatan,
+            'ambilkecamatan' => $ambilkecamatan,
+            'ambilcaleg' => $ambilcaleg,
+        ]);
+    }
+
+    public function report5($id)
+    {
+        // jumlah relawan per caleg berdasarkan desa
+
+        $bydesa = DB::table('tb_detail_relawan')
+            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_caleg.name as caleg', 'tb_desa.name as desa', DB::raw('count(tb_detail_relawan.id) as total'))
+            ->groupBy('tb_caleg.name')
+            ->groupBy('tb_desa.name')
+            ->where('tb_kecamatan.id', '=', $id)
+            ->get();
+
+        $ambildesa = Desa::where('id_kecamatan', '=', $id)->get();
+        $ambilcaleg = Caleg::all();
+        $idkecamatan = $id;
+
+        return view('admin.pages.report6', [
+            'bydesa' => $bydesa,
+            'ambildesa' => $ambildesa,
+            'ambilcaleg' => $ambilcaleg,
+            'idkecamatan' => $idkecamatan,
+        ]);
+    }
+
+    public function report6($id)
+    {
+        // jumlah relawan per caleg berdasarkan tps
+
+        $bytps = DB::table('tb_detail_relawan')
+            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_caleg.name as caleg', DB::raw('count(tb_detail_relawan.id) as total'))
+            ->groupBy('tb_caleg.name')
+            ->groupBy('tb_tps.name')
+            ->where('tb_desa.id', '=', $id)
+            ->get();
+
+
+        $ambiltps = Tps::where('id_desa', '=', $id)->get();
+        $ambilcaleg = Caleg::all();
+        $iddesa = $id;
+
+        return view('admin.pages.report7', [
+            'bytps' => $bytps,
+            'ambiltps' => $ambiltps,
+            'ambilcaleg' => $ambilcaleg,
+            'iddesa' => $iddesa,
+        ]);
+    }
 }

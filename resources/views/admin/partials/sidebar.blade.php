@@ -81,7 +81,14 @@
             <li class="nav-item w-100">
                 <a class="nav-link" href="/report">
                     <i class="fe fe-activity fe-16"></i>
-                    <span class="ml-3 item-text">Report</span>
+                    <span class="ml-3 item-text">Report Jumlah Suara</span>
+                </a>
+            </li>
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/report5">
+                    <i class="fe fe-activity fe-16"></i>
+                    <span class="ml-3 item-text">Report Jumlah Relawan</span>
                 </a>
             </li>
 

@@ -57,9 +57,15 @@ Route::post('/detail-pemilih', [CalegController::class, 'storedetailpemilih'])->
 Route::put('/detail-pemilih/{id}', [CalegController::class, 'updatedetailpemilih'])->middleware('IsLogin');
 Route::delete('/detail-pemilih/{id}', [CalegController::class, 'deletedetailpemilih'])->middleware('IsLogin');
 
+// report jumlah suara caleg
 Route::get('/report', [CalegController::class, 'report'])->middleware('IsLogin');
 Route::get('/report3/{id}', [CalegController::class, 'report2'])->middleware('IsLogin');
 Route::get('/report4/{id}', [CalegController::class, 'report3'])->middleware('IsLogin');
+
+// report jumlah relawan caleg
+Route::get('/report5', [CalegController::class, 'report4'])->middleware('IsLogin');
+Route::get('/report6/{id}', [CalegController::class, 'report5'])->middleware('IsLogin');
+Route::get('/report7/{id}', [CalegController::class, 'report6'])->middleware('IsLogin');
 
 Route::get('/kecamatan', [KecamatanController::class, 'index'])->middleware('IsLogin');
 Route::post('/kecamatan', [KecamatanController::class, 'store'])->middleware('IsLogin');
