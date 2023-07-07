@@ -43,8 +43,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Relawan</th>
-                                        <th>Alamat</th>
-
+                                        {{-- <th>Alamat</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -78,7 +77,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Yakin Ingin Menghapus Data {{ $data->name }} ?
+                                                    Yakin Ingin Menghapus Data {{ $data->relawan }} ?
                                                 </div>
                                                 <form action="/detail-relawan/{{ $data->id }}" method="post">
                                                     @csrf
@@ -162,13 +161,6 @@
                                                         </option>
                                                         @endforeach
                                                     </select>
-                                                </div>
-
-                                                <div class="form-group">
-
-                                                    <label for="recipient-name" class="col-form-label">Alamat
-                                                    </label>
-                                                    <textarea class="form-control" name="alamat" cols="30" rows="10"></textarea>
                                                 </div>
 
                                                 <div hidden class="form-group">

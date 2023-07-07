@@ -76,7 +76,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Yakin Ingin Menghapus Data {{ $data->name }} ?
+                                                    Yakin Ingin Menghapus Data {{ $data->tps }} ?
                                                 </div>
                                                 <form action="/detail-tps/{{ $data->id }}" method="post">
                                                     @csrf

@@ -119,7 +119,7 @@
 
                                                             <label for="recipient-name" class="col-form-label">Alamat
                                                             </label>
-                                                            <textarea class="form-control" name="alamat" cols="30" rows="10">{{ $data->alamat }}</textarea>
+                                                            <textarea class="form-control" name="alamat" cols="30" rows="5">{{ $data->alamat }}</textarea>
                                                         </div>
 
                                                         <div hidden class="form-group">
@@ -171,7 +171,7 @@
 
                                                     <label for="recipient-name" class="col-form-label">Alamat
                                                     </label>
-                                                    <textarea class="form-control" name="alamat" cols="30" rows="10"></textarea>
+                                                    <textarea class="form-control" name="alamat" cols="30" rows="5"></textarea>
                                                 </div>
 
                                                 <div hidden class="form-group">

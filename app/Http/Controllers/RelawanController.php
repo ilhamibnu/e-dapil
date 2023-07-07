@@ -14,12 +14,13 @@ class RelawanController extends Controller
         $relawan = DB::table('tb_relawan')
             ->join('tb_tps', 'tb_relawan.id_tps', '=', 'tb_tps.id')
             ->join('tb_desa', 'tb_tps.id_desa', '=', 'tb_desa.id')
-            ->select('tb_relawan.*', 'tb_tps.name as tps', 'tb_desa.name as desa')
+            ->select('tb_relawan.id', 'tb_relawan.name as relawan', 'tb_relawan.alamat as alamat', 'tb_tps.id as id_tps', 'tb_tps.name as tps', 'tb_desa.name as desa')
             ->get();
+
         $tps = Tps::with('desa')->get();
         return view('admin.pages.relawan', [
             'relawan' => $relawan,
-            'id_tps' => $tps
+            'tps' => $tps
         ]);
     }
 
@@ -41,7 +42,7 @@ class RelawanController extends Controller
             'alamat' => $request->alamat
         ]);
 
-        return redirect('/relawan')->with('success', 'Relawan berhasil ditambahkan!');
+        return redirect('/relawan')->with('create', 'Relawan berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -62,12 +63,12 @@ class RelawanController extends Controller
         $update->alamat = $request->alamat;
         $update->save();
 
-        return redirect('/relawan')->with('success', 'Relawan berhasil diubah!');
+        return redirect('/relawan')->with('update', 'Relawan berhasil diubah!');
     }
 
     public function destroy($id)
     {
         Relawan::find($id)->delete();
-        return redirect('/relawan')->with('success', 'Relawan berhasil dihapus!');
+        return redirect('/relawan')->with('delete', 'Relawan berhasil dihapus!');
     }
 }

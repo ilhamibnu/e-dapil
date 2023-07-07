@@ -44,7 +44,7 @@
                                         <th>No</th>
                                         <th>Nama Caleg</th>
                                         @foreach($ambiltps as $datatps)
-                                        <th><a href="/report5/{{ $datatps->idtps }}">{{ $datatps->tps }}</a></th>
+                                        <th><a href="/report5/{{ $datatps->id }}">{{ $datatps->name }}</a></th>
                                         @endforeach
 
                                     </tr>
@@ -60,15 +60,14 @@
                                             $ambiljumlahsuara = DB::table('tb_detail_pemilih')
                                             ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
                                             ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                                            ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
                                             ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
                                             ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
                                             ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                                             ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                                             ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
                                             ->where('tb_caleg.id', '=', $datacaleg->id)
-                                            ->where('tb_detail_tps.id', '=', $datatps->idtps)
-                                            ->where('tb_detail_desa.id', '=', $datatps->iddetaildesa)
-                                            ->where('tb_detail_kecamatan.id', '=', $datatps->iddetailkecamatan)
+                                            ->where('tb_tps.id', '=', $datatps->id)
                                             ->count();
                                             ?>
                                             {{ $ambiljumlahsuara }}

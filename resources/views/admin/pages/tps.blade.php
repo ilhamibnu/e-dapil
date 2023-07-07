@@ -57,9 +57,6 @@
                                         <td>{{ $data->desa->name }}</td>
                                         <td>
 
-                                            <!-- <a href="/paket/{{ $data->id }}"
-                                                    class="btn btn-success btn-sm">Detail</a> -->
-
                                             <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button>
 
                                             <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $data->id }}">Delete</button>
@@ -78,7 +75,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    Yakin Ingin Menghapus Data?
+                                                    Yakin Ingin Menghapus Data {{ $data->name }}?
                                                 </div>
                                                 <form action="/tps/{{ $data->id }}" method="post">
                                                     @csrf
@@ -124,7 +121,7 @@
                                                             <label for="recipient-name" class="col-form-label">Nama
                                                                 TPS
                                                             </label>
-                                                            <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name">
+                                                            <input type="text" value="" name="name" class="form-control" id="recipient-name">
                                                         </div>
 
                                                     </div>

@@ -55,7 +55,7 @@
                                     @foreach($relawan as $data)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $data->name }}</td>
+                                        <td>{{ $data->relawan }}</td>
                                         <td>{{ $data->alamat }}</td>
                                         <td>{{ $data->tps }}</td>
                                         <td>{{ $data->desa }}</td>
@@ -128,14 +128,14 @@
                                                             <label for="recipient-name" class="col-form-label">Nama
 
                                                             </label>
-                                                            <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name">
+                                                            <input type="text" value="" name="name" class="form-control" id="recipient-name">
                                                         </div>
 
                                                         <div class="form-group">
 
                                                             <label for="recipient-name" class="col-form-label">Alamat
                                                             </label>
-                                                            <textarea class="form-control" name="alamat" cols="30" rows="5">{{ $data->alamat }}</textarea>
+                                                            <textarea class="form-control" name="alamat" cols="30" rows="5"></textarea>
                                                         </div>
 
 

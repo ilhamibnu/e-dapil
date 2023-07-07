@@ -13,10 +13,16 @@ class Relawan extends Model
     protected $fillable = [
         'name',
         'alamat',
+        'id_tps',
     ];
 
     public function detailRelawan()
     {
         return $this->hasMany(DetailRelawan::class, 'id_relawan', 'id');
+    }
+
+    public function tps()
+    {
+        return $this->belongsTo(Tps::class, 'id_tps', 'id');
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Desa extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'tb_desa';
 
     protected $fillable = [
@@ -24,5 +24,10 @@ class Desa extends Model
     public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
+    }
+
+    public function tps()
+    {
+        return $this->hasMany(Tps::class, 'id_desa', 'id');
     }
 }
