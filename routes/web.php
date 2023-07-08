@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\RelawanController;
 use App\Http\Controllers\TpsController;
+use App\Http\Controllers\LandingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,10 @@ use App\Http\Controllers\TpsController;
 |
 */
 
-Route::get('/', [AuthController::class, 'index'])->middleware('IsStay');
+// landing
+
+Route::get('/', [LandingController::class, 'index']);
+
 Route::get('/login', [AuthController::class, 'index'])->middleware('IsStay');
 Route::post('/login', [AuthController::class, 'authenticate'])->middleware('IsStay');
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('IsLogin');
