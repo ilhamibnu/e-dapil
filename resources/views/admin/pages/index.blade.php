@@ -34,7 +34,7 @@ Dashboard
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="chartbox mr-4">
-                            <div id="lineChart2"></div>
+                            <div id="columnChart3"></div>
                         </div>
                     </div> <!-- .card-body -->
                 </div> <!-- .card -->
@@ -48,167 +48,315 @@ Dashboard
 
 @section('script')
 <script>
+    var namacaleg = <?php echo json_encode($namacaleg); ?>;
+    var jumlahsuara = <?php echo json_encode($jumlahsuara); ?>;
 
-
-    var lineChart,
-        lineChartoptions = {
+    var columnChart
+        , columnChartoptions = {
             series: [{
-                name: "Jumlah Suara",
-                data: datatanggal
-            }],
-            chart: {
-                height: 350,
-                type: "line",
-                background: !1,
-                zoom: {
-                    enabled: !1
-                },
-                toolbar: {
+                    name: "Jumlah Suara"
+                    , data: jumlahsuara
+                , }
+            , ]
+            , chart: {
+                type: "bar"
+                , height: 350
+                , stacked: !1
+                , columnWidth: "70%"
+                , zoom: {
+                    enabled: !0
+                }
+                , toolbar: {
                     show: !1
-                },
-            },
-            theme: {
-                mode: colors.chartTheme
-            },
-            stroke: {
-                show: !0,
-                curve: "smooth",
-                lineCap: "round",
-                colors: chartColors,
-                width: [3, 2, 3],
-                dashArray: [0, 0, 0],
-            },
-            dataLabels: {
+                }
+                , background: "transparent"
+            , }
+            , dataLabels: {
                 enabled: !1
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
+            }
+            , theme: {
+                mode: colors.chartTheme
+            }
+            , responsive: [{
+                breakpoint: 480
+                , options: {
                     legend: {
-                        position: "bottom",
-                        offsetX: -10,
-                        offsetY: 0
-                    },
-                },
-            }, ],
-            markers: {
-                size: 4,
-                colors: base.primaryColor,
-                strokeColors: colors.borderColor,
-                strokeWidth: 2,
-                strokeOpacity: 0.9,
-                strokeDashArray: 0,
-                fillOpacity: 1,
-                discrete: [],
-                shape: "circle",
-                radius: 2,
-                offsetX: 0,
-                offsetY: 0,
-                onClick: void 0,
-                onDblClick: void 0,
-                showNullDataPoints: !0,
-                hover: {
-                    size: void 0,
-                    sizeOffset: 3
-                },
-            },
-            xaxis: {
-                // type: "datetime",
-                categories: datapenghasilan,
-                labels: {
-                    show: !0,
-                    trim: !1,
-                    minHeight: void 0,
-                    maxHeight: 120,
-                    style: {
-                        colors: colors.mutedColor,
-                        cssClass: "text-muted",
-                        fontFamily: base.defaultFontFamily,
-                    },
-                },
-                axisBorder: {
+                        position: "bottom"
+                        , offsetX: -10
+                        , offsetY: 0
+                    }
+                , }
+            , }, ]
+            , plotOptions: {
+                bar: {
+                    horizontal: !1
+                    , columnWidth: "40%"
+                    , radius: 30
+                    , enableShades: !1
+                    , endingShape: "rounded"
+                , }
+            , }
+            , xaxis: {
+                type: "category"
+                , categories: namacaleg
+                , labels: {
+                    show: !0
+                    , trim: !0
+                    , minHeight: void 0
+                    , maxHeight: 120
+                    , style: {
+                        colors: colors.mutedColor
+                        , cssClass: "text-muted"
+                        , fontFamily: base.defaultFontFamily
+                    , }
+                , }
+                , axisBorder: {
                     show: !1
-                },
-            },
-            yaxis: {
+                }
+            , }
+            , yaxis: {
                 labels: {
-                    show: !0,
-                    trim: !1,
-                    offsetX: -10,
-                    minHeight: void 0,
-                    maxHeight: 120,
-                    style: {
-                        colors: colors.mutedColor,
-                        cssClass: "text-muted",
-                        fontFamily: base.defaultFontFamily,
-                    },
-                },
-            },
-            legend: {
-                position: "top",
-                fontFamily: base.defaultFontFamily,
-                fontWeight: 400,
-                labels: {
-                    colors: colors.mutedColor,
-                    useSeriesColors: !1
-                },
-                markers: {
-                    width: 10,
-                    height: 10,
-                    strokeWidth: 0,
-                    strokeColor: colors.borderColor,
-                    fillColors: chartColors,
-                    radius: 6,
-                    customHTML: void 0,
-                    onClick: void 0,
-                    offsetX: 0,
-                    offsetY: 0,
-                },
-                itemMargin: {
-                    horizontal: 10,
-                    vertical: 0
-                },
-                onItemClick: {
+                    show: !0
+                    , trim: !1
+                    , offsetX: -10
+                    , minHeight: void 0
+                    , maxHeight: 120
+                    , style: {
+                        colors: colors.mutedColor
+                        , cssClass: "text-muted"
+                        , fontFamily: base.defaultFontFamily
+                    , }
+                , }
+            , }
+            , legend: {
+                position: "top"
+                , fontFamily: base.defaultFontFamily
+                , fontWeight: 400
+                , labels: {
+                    colors: colors.mutedColor
+                    , useSeriesColors: !1
+                }
+                , markers: {
+                    width: 10
+                    , height: 10
+                    , strokeWidth: 0
+                    , strokeColor: "#fff"
+                    , fillColors: [extend.primaryColor, extend.primaryColorLighter]
+                    , radius: 6
+                    , customHTML: void 0
+                    , onClick: void 0
+                    , offsetX: 0
+                    , offsetY: 0
+                , }
+                , itemMargin: {
+                    horizontal: 10
+                    , vertical: 0
+                }
+                , onItemClick: {
                     toggleDataSeries: !0
-                },
-                onItemHover: {
+                }
+                , onItemHover: {
                     highlightDataSeries: !0
-                },
-            },
-            grid: {
-                show: !0,
-                borderColor: colors.borderColor,
-                strokeDashArray: 0,
-                position: "back",
-                xaxis: {
+                }
+            , }
+            , fill: {
+                opacity: 1
+                , colors: [base.primaryColor, extend.primaryColorLighter]
+            , }
+            , grid: {
+                show: !0
+                , borderColor: colors.borderColor
+                , strokeDashArray: 0
+                , position: "back"
+                , xaxis: {
                     lines: {
                         show: !1
                     }
-                },
-                yaxis: {
+                }
+                , yaxis: {
                     lines: {
                         show: !0
                     }
-                },
-                row: {
-                    colors: void 0,
-                    opacity: 0.5
-                },
-                column: {
-                    colors: void 0,
-                    opacity: 0.5
-                },
-                padding: {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                },
-            },
-        },
-        lineChart = document.querySelector("#lineChart2");
-    lineChart &&
-        (lineChart = new ApexCharts(lineChart, lineChartoptions)).render();
+                }
+                , row: {
+                    colors: void 0
+                    , opacity: 0.5
+                }
+                , column: {
+                    colors: void 0
+                    , opacity: 0.5
+                }
+                , padding: {
+                    top: 0
+                    , right: 0
+                    , bottom: 0
+                    , left: 0
+                }
+            , }
+        , }
+        , columnChartCtn = document.querySelector("#columnChart3");
+    columnChartCtn &&
+        (columnChart = new ApexCharts(columnChartCtn, columnChartoptions)).render();
+
+    // var lineChart,
+    //     lineChartoptions = {
+    //         series: [{
+    //             name: "Jumlah Suara",
+    //             data: datatanggal
+    //         }],
+    //         chart: {
+    //             height: 350,
+    //             type: "line",
+    //             background: !1,
+    //             zoom: {
+    //                 enabled: !1
+    //             },
+    //             toolbar: {
+    //                 show: !1
+    //             },
+    //         },
+    //         theme: {
+    //             mode: colors.chartTheme
+    //         },
+    //         stroke: {
+    //             show: !0,
+    //             curve: "smooth",
+    //             lineCap: "round",
+    //             colors: chartColors,
+    //             width: [3, 2, 3],
+    //             dashArray: [0, 0, 0],
+    //         },
+    //         dataLabels: {
+    //             enabled: !1
+    //         },
+    //         responsive: [{
+    //             breakpoint: 480,
+    //             options: {
+    //                 legend: {
+    //                     position: "bottom",
+    //                     offsetX: -10,
+    //                     offsetY: 0
+    //                 },
+    //             },
+    //         }, ],
+    //         markers: {
+    //             size: 4,
+    //             colors: base.primaryColor,
+    //             strokeColors: colors.borderColor,
+    //             strokeWidth: 2,
+    //             strokeOpacity: 0.9,
+    //             strokeDashArray: 0,
+    //             fillOpacity: 1,
+    //             discrete: [],
+    //             shape: "circle",
+    //             radius: 2,
+    //             offsetX: 0,
+    //             offsetY: 0,
+    //             onClick: void 0,
+    //             onDblClick: void 0,
+    //             showNullDataPoints: !0,
+    //             hover: {
+    //                 size: void 0,
+    //                 sizeOffset: 3
+    //             },
+    //         },
+    //         xaxis: {
+    //             // type: "datetime",
+    //             categories: datapenghasilan,
+    //             labels: {
+    //                 show: !0,
+    //                 trim: !1,
+    //                 minHeight: void 0,
+    //                 maxHeight: 120,
+    //                 style: {
+    //                     colors: colors.mutedColor,
+    //                     cssClass: "text-muted",
+    //                     fontFamily: base.defaultFontFamily,
+    //                 },
+    //             },
+    //             axisBorder: {
+    //                 show: !1
+    //             },
+    //         },
+    //         yaxis: {
+    //             labels: {
+    //                 show: !0,
+    //                 trim: !1,
+    //                 offsetX: -10,
+    //                 minHeight: void 0,
+    //                 maxHeight: 120,
+    //                 style: {
+    //                     colors: colors.mutedColor,
+    //                     cssClass: "text-muted",
+    //                     fontFamily: base.defaultFontFamily,
+    //                 },
+    //             },
+    //         },
+    //         legend: {
+    //             position: "top",
+    //             fontFamily: base.defaultFontFamily,
+    //             fontWeight: 400,
+    //             labels: {
+    //                 colors: colors.mutedColor,
+    //                 useSeriesColors: !1
+    //             },
+    //             markers: {
+    //                 width: 10,
+    //                 height: 10,
+    //                 strokeWidth: 0,
+    //                 strokeColor: colors.borderColor,
+    //                 fillColors: chartColors,
+    //                 radius: 6,
+    //                 customHTML: void 0,
+    //                 onClick: void 0,
+    //                 offsetX: 0,
+    //                 offsetY: 0,
+    //             },
+    //             itemMargin: {
+    //                 horizontal: 10,
+    //                 vertical: 0
+    //             },
+    //             onItemClick: {
+    //                 toggleDataSeries: !0
+    //             },
+    //             onItemHover: {
+    //                 highlightDataSeries: !0
+    //             },
+    //         },
+    //         grid: {
+    //             show: !0,
+    //             borderColor: colors.borderColor,
+    //             strokeDashArray: 0,
+    //             position: "back",
+    //             xaxis: {
+    //                 lines: {
+    //                     show: !1
+    //                 }
+    //             },
+    //             yaxis: {
+    //                 lines: {
+    //                     show: !0
+    //                 }
+    //             },
+    //             row: {
+    //                 colors: void 0,
+    //                 opacity: 0.5
+    //             },
+    //             column: {
+    //                 colors: void 0,
+    //                 opacity: 0.5
+    //             },
+    //             padding: {
+    //                 top: 0,
+    //                 right: 0,
+    //                 bottom: 0,
+    //                 left: 0
+    //             },
+    //         },
+    //     },
+    //     lineChart = document.querySelector("#lineChart2");
+    // lineChart &&
+    //     (lineChart = new ApexCharts(lineChart, lineChartoptions)).render();
 
 </script>
 @endsection
@@ -216,37 +364,37 @@ Dashboard
 
 @section('sweetalert')
 @if(Session::get('loginberhasil'))
-    <script>
-        Swal.fire("Well Done", "Anda Berhasil Login", "success");
+<script>
+    Swal.fire("Well Done", "Anda Berhasil Login", "success");
 
-    </script>
+</script>
 @endif
 
 @if(Session::get('updateprofil'))
-    <script>
-        Swal.fire("Well Done", "Profil Berhasil Diperbarui", "success");
+<script>
+    Swal.fire("Well Done", "Profil Berhasil Diperbarui", "success");
 
-    </script>
+</script>
 @endif
 
 @if(Session::get('updateprofilerror'))
-    <script>
-        Swal.fire("Opps!!", "Password Anda Salah", "error");
+<script>
+    Swal.fire("Opps!!", "Password Anda Salah", "error");
 
-    </script>
+</script>
 @endif
 
 @if(Session::get('passwordtidaksama'))
-    <script>
-        Swal.fire("Opps!!", "Konfirmasi Password Anda Salah", "error");
+<script>
+    Swal.fire("Opps!!", "Konfirmasi Password Anda Salah", "error");
 
-    </script>
+</script>
 @endif
 
 @if(Session::get('sudahlogin'))
-    <script>
-        Swal.fire("Notice", "Anda Masih Login", "success");
+<script>
+    Swal.fire("Notice", "Anda Masih Login", "success");
 
-    </script>
+</script>
 @endif
 @endsection
