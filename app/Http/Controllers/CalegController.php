@@ -416,14 +416,17 @@ class CalegController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'nik' => 'unique:tb_detail_pemilih',
             'alamat' => 'required',
         ], [
             'name.required' => 'Nama Pemilih tidak boleh kosong',
+            'nik.unique' => 'NIK Pemilih sudah terdaftar',
             'alamat.required' => 'Alamat Pemilih tidak boleh kosong',
         ]);
 
         $detailpemilih = new DetailPemilih;
         $detailpemilih->name = $request->name;
+        $detailpemilih->nik = $request->nik;
         $detailpemilih->alamat = $request->alamat;
         $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
         $detailpemilih->save();
@@ -434,14 +437,17 @@ class CalegController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'nik' => 'unique:tb_detail_pemilih,nik,' . $id,
             'alamat' => 'required',
         ], [
             'name.required' => 'Nama Pemilih tidak boleh kosong',
+            'nik.unique' => 'NIK Pemilih sudah terdaftar',
             'alamat.required' => 'Alamat Pemilih tidak boleh kosong',
         ]);
 
         $detailpemilih = DetailPemilih::find($id);
         $detailpemilih->name = $request->name;
+        $detailpemilih->nik = $request->nik;
         $detailpemilih->alamat = $request->alamat;
         $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
         $detailpemilih->save();

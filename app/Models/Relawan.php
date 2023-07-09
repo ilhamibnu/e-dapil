@@ -12,6 +12,7 @@ class Relawan extends Model
 
     protected $fillable = [
         'name',
+        'nik',
         'alamat',
         'id_tps',
     ];

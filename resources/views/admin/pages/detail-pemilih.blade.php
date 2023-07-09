@@ -43,6 +43,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Pemilih</th>
+                                        <th>Nik</th>
                                         <th>Alamat</th>
                                         <th>Action</th>
                                     </tr>
@@ -55,6 +56,7 @@
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $data->name }}</td>
+                                        <td>{{ $data->nik }}</td>
                                         <td>{{ $data->alamat }}</td>
                                         <td>
 
@@ -115,6 +117,14 @@
                                                             </label>
                                                             <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name" required>
                                                         </div>
+
+                                                        <div class="form-group">
+
+                                                            <label for="recipient-name" class="col-form-label">Nik
+                                                            </label>
+                                                            <input type="text" value="{{ $data->nik }}" name="nik" class="form-control" id="recipient-name">
+                                                        </div>
+
                                                         <div class="form-group">
 
                                                             <label for="recipient-name" class="col-form-label">Alamat
@@ -166,6 +176,14 @@
                                                     </label>
                                                     <input type="text" value="" name="name" class="form-control" id="recipient-name" required>
                                                 </div>
+
+                                                <div class="form-group">
+
+                                                    <label for="recipient-name" class="col-form-label">Nik
+                                                    </label>
+                                                    <input type="text" value="" name="nik" class="form-control" id="recipient-name">
+                                                </div>
+
 
                                                 <div class="form-group">
 

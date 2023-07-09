@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tb_relawan', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('nik')->nullable();
             $table->string('alamat');
             $table->timestamps();
         });

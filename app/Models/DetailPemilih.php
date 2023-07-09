@@ -13,6 +13,7 @@ class DetailPemilih extends Model
 
     protected $fillable = [
         'name',
+        'nik',
         'alamat',
         'id_detail_relawan',
     ];
@@ -22,5 +23,5 @@ class DetailPemilih extends Model
         return $this->belongsTo(DetailRelawan::class, 'id_detail_relawan', 'id');
     }
 
-    
+
 }
