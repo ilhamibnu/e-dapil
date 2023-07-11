@@ -45,7 +45,7 @@
 
                                     <div class="form-group">
                                         <label for="example-select">Kecamatan</label>
-                                        <select name="id_kecamatan" class="form-control" id="example-select">
+                                        <select name="id_kecamatan" class="form-control" id="kecamatan">
                                             <option selected value="">Pilih Kecamatan</option>
                                             @foreach ($datakecamatan as $data)
                                             <option value="{{ $data->id }}">
@@ -56,18 +56,17 @@
 
                                     <div class="form-group">
                                         <label for="example-select">Desa</label>
-                                        <select name="id_desa" class="form-control" id="example-select">
+                                        <select name="id_desa" class="form-control" id="desa">
                                             <option selected value="">
                                                 Pilih Desa</option>
 
-                                            @foreach ($datadesa as $data)
+                                            {{-- @foreach ($datadesa as $data)
                                             <option value="{{ $data->id }}">
-                                                {{ $data->name }}</option>
-                                            @endforeach
+                                            {{ $data->name }}</option>
+                                            @endforeach --}}
 
                                         </select>
                                     </div>
-
                                     <div class="text-center aligment-center">
                                         <button class="btn btn-success btn-sm" type="submit">Cari</button>
                                     </div>
@@ -107,6 +106,30 @@
 @endsection
 
 @section('script')
+
+<script>
+    $(document).ready(function() {
+        // Event saat pilihan kabupaten berubah
+        $('#kecamatan').change(function() {
+            var id_kecamatan = $(this).val();
+            // Permintaan Ajax untuk mendapatkan desa berdasarkan kabupaten
+            $.ajax({
+                url: '/tampildesa/' + id_kecamatan
+                , type: 'GET'
+                , success: function(data) {
+                    // Mengisi opsi pilihan desa
+                    var options = '<option value="">Pilih Desa</option>';
+                    $.each(data, function(key, desa) {
+                        options += '<option value="' + desa.id + '">' + desa.name + '</option>';
+                    });
+                    $('#desa').html(options);
+                }
+            });
+        });
+    });
+
+</script>
+
 <script>
     $('#dataTable-1').DataTable({
         autoWidth: true,

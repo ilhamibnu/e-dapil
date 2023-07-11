@@ -75,6 +75,8 @@ Route::get('/report7/{id}', [CalegController::class, 'report6'])->middleware('Is
 Route::get('/report-pemilih', [CalegController::class, 'indexreportpemilih'])->middleware('IsLogin');
 Route::post('/report-pemilih', [CalegController::class, 'reportpemilih'])->middleware('IsLogin');
 
+Route::get('/tampildesa/{id}', [CalegController::class, 'tampildesa'])->middleware('IsLogin');
+
 Route::get('/kecamatan', [KecamatanController::class, 'index'])->middleware('IsLogin');
 Route::post('/kecamatan', [KecamatanController::class, 'store'])->middleware('IsLogin');
 Route::put('/kecamatan/{id}', [KecamatanController::class, 'update'])->middleware('IsLogin');
@@ -89,6 +91,7 @@ Route::get('/tps', [TpsController::class, 'index'])->middleware('IsLogin');
 Route::post('/tps', [TpsController::class, 'store'])->middleware('IsLogin');
 Route::put('/tps/{id}', [TpsController::class, 'update'])->middleware('IsLogin');
 Route::delete('/tps/{id}', [TpsController::class, 'delete'])->middleware('IsLogin');
+Route::get('/caridesa/{id}', [TpsController::class, 'caridesa'])->middleware('IsLogin');
 
 Route::get('/relawan', [RelawanController::class, 'index'])->middleware('IsLogin');
 Route::post('/relawan', [RelawanController::class, 'store'])->middleware('IsLogin');

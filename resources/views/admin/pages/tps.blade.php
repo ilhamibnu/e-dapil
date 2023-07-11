@@ -57,7 +57,7 @@
                                         <td>{{ $data->desa->name }}</td>
                                         <td>
 
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button>
+                                            {{-- <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button> --}}
 
                                             <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $data->id }}">Delete</button>
 
@@ -103,6 +103,7 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
+
 
                                                         <div class="form-group">
                                                             <label for="example-select">Desa</label>
@@ -153,11 +154,11 @@
                                             <div class="modal-body">
 
                                                 <div class="form-group">
-                                                    <label for="example-select">Desa</label>
-                                                    <select name="id_desa" class="form-control" id="example-select">
+                                                    <label for="example-select">Kecamatan</label>
+                                                    <select name="id_kecamatan" class="form-control" id="kecamatan">
                                                         <option selected value="">
-                                                            Pilih Desa</option>
-                                                        @foreach ($desa as $data)
+                                                            Pilih Kecamatan</option>
+                                                        @foreach ($kecamatan as $data)
                                                         <option value="{{ $data->id }}">
                                                             {{ $data->name }}</option>
                                                         @endforeach
@@ -165,10 +166,24 @@
                                                 </div>
 
                                                 <div class="form-group">
+                                                    <label for="example-select">Desa</label>
+                                                    <select name="id_desa" class="form-control" id="desa">
+                                                        <option selected value="">
+                                                            Pilih Desa</option>
+                                                </div>
+
+                                                <div class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Nama TPS
                                                     </label>
-                                                    <input type="text" value="" name="name" class="form-control" id="recipient-name" required>
+                                                    <input hidden type="text" value="" class="form-control" id="recipient-name">
                                                 </div>
+
+                                                <div class="form-group">
+                                                    <label for="recipient-name" class="col-form-label">Jumlah TPS
+                                                    </label>
+                                                    <input type="text" value="" name="jumlah_tps" class="form-control" id="recipient-name" required>
+                                                </div>
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
@@ -189,6 +204,28 @@
 @endsection
 
 @section('script')
+<script>
+    $(document).ready(function() {
+        // Event saat pilihan kabupaten berubah
+        $('#kecamatan').change(function() {
+            var id_kecamatan = $(this).val();
+            // Permintaan Ajax untuk mendapatkan desa berdasarkan kabupaten
+            $.ajax({
+                url: '/caridesa/' + id_kecamatan
+                , type: 'GET'
+                , success: function(data) {
+                    // Mengisi opsi pilihan desa
+                    var options = '<option value="">Pilih Desa</option>';
+                    $.each(data, function(key, desa) {
+                        options += '<option value="' + desa.id + '">' + desa.name + '</option>';
+                    });
+                    $('#desa').html(options);
+                }
+            });
+        });
+    });
+
+</script>
 <script>
     $('#dataTable-1').DataTable({
         autoWidth: true,

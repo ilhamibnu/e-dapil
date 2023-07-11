@@ -662,7 +662,7 @@ class CalegController extends Controller
     {
         $datacaleg = Caleg::all();
         $datakecamatan = Kecamatan::all();
-        $datadesa = Desa::all();
+        // $datadesa = Desa::all();
 
         $test = DB::table('tb_detail_pemilih')
             ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
@@ -682,13 +682,19 @@ class CalegController extends Controller
 
         return view('admin.pages.report-pemilih', [
             'datakecamatan' => $datakecamatan,
-            'datadesa' => $datadesa,
+            // 'datadesa' => $datadesa,
             'datacaleg' => $datacaleg,
             'datapemilih' => $test,
         ]);
     }
 
-    public function reportpemilih(Request $request)
+    public function tampildesa($id)
+    {
+        $datadesa = Desa::where('id_kecamatan', '=', $id)->get();
+        return response()->json($datadesa);
+    }
+
+    public function reportpemilih(Request $request, $id)
     {
         $request->validate([
             'id_caleg' => 'required',
