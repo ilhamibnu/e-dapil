@@ -74,28 +74,30 @@
                                 </form>
                             </div>
                             <!-- table -->
-                            <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-1">
-                                <div class="align-right text-right mb-3">
-                                </div>
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Pemilih</th>
-                                        <th>Alamat</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1; ?>
-                                    @foreach ($datapemilih as $data)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $data->pemilih }}</td>
-                                        <td>{{ $data->alamat }}</td>
-                                    </tr>
-                                    @endforeach
+                            <div class="table-responsive">
+                                <table class="table datatables table-hover responsive nowrap" style="width:100%" id="dataTable-1">
+                                    <div class="align-right text-right mb-3">
+                                    </div>
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Pemilih</th>
+                                            <th>Alamat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; ?>
+                                        @foreach ($datapemilih as $data)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $data->pemilih }}</td>
+                                            <td>{{ $data->alamat }}</td>
+                                        </tr>
+                                        @endforeach
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- simple table -->

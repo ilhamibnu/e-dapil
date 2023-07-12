@@ -33,30 +33,31 @@
                             </div>
                             @endif
                             <!-- table -->
-                            <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-1">
-                                <div class="align-right text-right mb-3">
-                                    <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
+                            <div class="table-responsive">
+                                <table class="table datatables table-hover responsive nowrap" style="width:100%" id="dataTable-1">
+                                    <div class="align-right text-right mb-3">
+                                        <!-- <button class="btn btn-success btn-sm" data-toggle="modal"
                                         data-target="#addModal">Add</button> -->
-                                </div>
+                                    </div>
 
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Caleg</th>
-                                        @foreach($ambiltps as $datatps)
-                                        <th>{{ $datatps->name }}</th>
-                                        @endforeach
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Caleg</th>
+                                            @foreach($ambiltps as $datatps)
+                                            <th>{{ $datatps->name }}</th>
+                                            @endforeach
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($ambilcaleg as $datacaleg)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $datacaleg->name }}</td>
-                                        @foreach($ambiltps as $datatps)
-                                        <td>
-                                            <?php
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($ambilcaleg as $datacaleg)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $datacaleg->name }}</td>
+                                            @foreach($ambiltps as $datatps)
+                                            <td>
+                                                <?php
                                             $ambiljumlahrelawan = DB::table('tb_detail_relawan')
                                             ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
                                             ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
@@ -70,13 +71,14 @@
                                             ->where('tb_tps.id', '=', $datatps->id)
                                             ->count();
                                             ?>
-                                            {{ $ambiljumlahrelawan }}
-                                        </td>
+                                                {{ $ambiljumlahrelawan }}
+                                            </td>
+                                            @endforeach
+                                        </tr>
                                         @endforeach
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- simple table -->

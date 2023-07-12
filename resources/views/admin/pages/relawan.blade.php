@@ -33,134 +33,136 @@
                             </div>
                             @endif
                             <!-- table -->
-                            <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-1">
-                                <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">Add</button>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table datatables table-hover responsive nowrap" style="width:100%" id="dataTable-1">
+                                    <div class="align-right text-right mb-3">
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">Add</button>
+                                    </div>
 
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama</th>
-                                        <th>Nik</th>
-                                        <th>Alamat</th>
-                                        <th>TPS</th>
-                                        <th>Desa</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                    $no = 1;
-                                    @endphp
-                                    @foreach($relawan as $data)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $data->relawan }}</td>
-                                        <td>{{ $data->nik }}</td>
-                                        <td>{{ $data->alamat }}</td>
-                                        <td>{{ $data->tps }}</td>
-                                        <td>{{ $data->desa }}</td>
-                                        <td>
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama</th>
+                                            <th>Nik</th>
+                                            <th>Alamat</th>
+                                            <th>TPS</th>
+                                            <th>Desa</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $no = 1;
+                                        @endphp
+                                        @foreach($relawan as $data)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $data->relawan }}</td>
+                                            <td>{{ $data->nik }}</td>
+                                            <td>{{ $data->alamat }}</td>
+                                            <td>{{ $data->tps }}</td>
+                                            <td>{{ $data->desa }}</td>
+                                            <td>
 
-                                            <!-- <a href="/paket/{{ $data->id }}"
+                                                <!-- <a href="/paket/{{ $data->id }}"
                                                     class="btn btn-success btn-sm">Detail</a> -->
 
-                                            <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button>
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button>
 
-                                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $data->id }}">Delete</button>
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $data->id }}">Delete</button>
 
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
 
-                                    <!-- Delete Modal -->
-                                    <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="defaultModalLabel">Delete Modal</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Yakin Ingin Menghapus Data?
-                                                </div>
-                                                <form action="/relawan/{{ $data->id }}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn mb-2 btn-success" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn mb-2 btn-danger">Delete</button>
+                                        <!-- Delete Modal -->
+                                        <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="defaultModalLabel">Delete Modal</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
                                                     </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Edit Modal -->
-                                    <div class="modal fade" id="editModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="defaultModalLabel">Edit Modal</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="/relawan/{{ $data->id }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
                                                     <div class="modal-body">
-
-                                                        <div class="form-group">
-                                                            <label for="example-select">TPS</label>
-                                                            <select name="id_tps" class="form-control" id="example-select">
-                                                                <option selected value="{{ $data->id_tps }}">
-                                                                    {{ $data->tps }} - {{ $data->desa }}</option>
-                                                                @foreach ($tps as $data)
-                                                                <option value="{{ $data->id }}">
-                                                                    {{ $data->name }} - {{ $data->desa->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="col-form-label">Nama
-
-                                                            </label>
-                                                            <input type="text" value="" name="name" class="form-control" id="recipient-name">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="col-form-label">Nik
-
-                                                            </label>
-                                                            <input type="text" value="" name="nik" class="form-control" id="recipient-name">
-                                                        </div>
-
-                                                        <div class="form-group">
-
-                                                            <label for="recipient-name" class="col-form-label">Alamat
-                                                            </label>
-                                                            <textarea class="form-control" name="alamat" cols="30" rows="5"></textarea>
-                                                        </div>
-
-
+                                                        Yakin Ingin Menghapus Data?
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn mb-2 btn-success">Save
-                                                            changes</button>
-                                                    </div>
-                                                </form>
+                                                    <form action="/relawan/{{ $data->id }}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn mb-2 btn-success" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn mb-2 btn-danger">Delete</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @endforeach
-                                </tbody>
-                            </table>
+
+                                        <!-- Edit Modal -->
+                                        <div class="modal fade" id="editModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="defaultModalLabel">Edit Modal</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="/relawan/{{ $data->id }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-body">
+
+                                                            <div class="form-group">
+                                                                <label for="example-select">TPS</label>
+                                                                <select name="id_tps" class="form-control" id="example-select">
+                                                                    <option selected value="{{ $data->id_tps }}">
+                                                                        {{ $data->tps }} - {{ $data->desa }}</option>
+                                                                    @foreach ($tps as $data)
+                                                                    <option value="{{ $data->id }}">
+                                                                        {{ $data->name }} - {{ $data->desa->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Nama
+
+                                                                </label>
+                                                                <input type="text" value="" name="name" class="form-control" id="recipient-name">
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Nik
+
+                                                                </label>
+                                                                <input type="text" value="" name="nik" class="form-control" id="recipient-name">
+                                                            </div>
+
+                                                            <div class="form-group">
+
+                                                                <label for="recipient-name" class="col-form-label">Alamat
+                                                                </label>
+                                                                <textarea class="form-control" name="alamat" cols="30" rows="5"></textarea>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn mb-2 btn-success">Save
+                                                                changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             <!-- Add Modal -->
                             <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">

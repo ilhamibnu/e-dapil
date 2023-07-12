@@ -15,70 +15,64 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
-                           >
+                            >
                             @if($errors->any())
-                                <div class="alert alert-danger alert-dismissible fade show">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                            aria-hidden="true">×</span>
-                                    </button>
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                </button>
 
 
-                                    <?php
-                                        
+                                <?php
+
                                         $nomer = 1;
-                                        
+
                                         ?>
 
-                                    @foreach($errors->all() as $error)
-                                        <li>{{ $nomer++ }}. {{ $error }}</li>
-                                    @endforeach
-                                </div>
+                                @foreach($errors->all() as $error)
+                                <li>{{ $nomer++ }}. {{ $error }}</li>
+                                @endforeach
+                            </div>
                             @endif
                             <!-- table -->
-                            <table class="table datatables responsive nowrap" style="width:100%" id="dataTable-1">
-                                <div class="align-right text-right mb-3">
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#addModal">Add</button>
-                                </div>
+                            <div class="table-responsive">
+                                <table class="table datatables table-hover responsive nowrap" style="width:100%" id="dataTable-1">
+                                    <div class="align-right text-right mb-3">
+                                        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#addModal">Add</button>
+                                    </div>
 
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nama Kecamatan</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Kecamatan</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
                                         $no = 1;
-                                    @endphp
-                                    @foreach($detailkecamatan as $data)
+                                        @endphp
+                                        @foreach($detailkecamatan as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->kecamatan }}</td>
                                             <td>
 
-                                                <a href="/detail-desa/{{ $data->id }}"
-                                                    class="btn btn-success btn-sm">Detail</a>
+                                                <a href="/detail-desa/{{ $data->id }}" class="btn btn-success btn-sm">Detail</a>
 
-                                                <button class="btn btn-warning btn-sm" data-toggle="modal"
-                                                    data-target="#editModal{{ $data->id }}">Edit</button>
+                                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal{{ $data->id }}">Edit</button>
 
-                                                <button class="btn btn-danger btn-sm" data-toggle="modal"
-                                                    data-target="#deleteModal{{ $data->id }}">Delete</button>
+                                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $data->id }}">Delete</button>
 
                                             </td>
                                         </tr>
 
                                         <!-- Delete Modal -->
-                                        <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="deleteModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="defaultModalLabel">Delete Modal</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -89,10 +83,8 @@
                                                         @csrf
                                                         @method('delete')
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn mb-2 btn-success"
-                                                                data-dismiss="modal">Close</button>
-                                                            <button type="submit"
-                                                                class="btn mb-2 btn-danger">Delete</button>
+                                                            <button type="button" class="btn mb-2 btn-success" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn mb-2 btn-danger">Delete</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -100,14 +92,12 @@
                                         </div>
 
                                         <!-- Edit Modal -->
-                                        <div class="modal fade" id="editModal{{ $data->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="editModal{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="defaultModalLabel">Edit Modal</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
@@ -118,19 +108,16 @@
                                                             <div hidden class="form-group">
                                                                 <label for="recipient-name" class="col-form-label">Nama
                                                                 </label>
-                                                                <input type="text" value="{{ $caleg->id }}"
-                                                                    name="id_caleg" class="form-control"
-                                                                    id="recipient-name" required>
+                                                                <input type="text" value="{{ $caleg->id }}" name="id_caleg" class="form-control" id="recipient-name" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="example-select">Kecamatan</label>
-                                                                <select name="id_kecamatan" class="form-control"
-                                                                    id="example-select">
+                                                                <select name="id_kecamatan" class="form-control" id="example-select">
                                                                     <option value="{{ $data->id_kecamatan }}">
                                                                         {{ $data->kecamatan }}</option>
                                                                     @foreach($kecamatan as $data )
-                                                                        <option value="{{ $data->id }}">
-                                                                            {{ $data->name }}</option>
+                                                                    <option value="{{ $data->id }}">
+                                                                        {{ $data->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -139,8 +126,7 @@
 
 
                                                         <div class="modal-footer">
-                                                            <button type="button" class="btn mb-2 btn-danger"
-                                                                data-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
                                                             <button type="submit" class="btn mb-2 btn-success">Save
                                                                 changes</button>
                                                         </div>
@@ -148,12 +134,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                             <!-- Add Modal -->
-                            <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-                                aria-labelledby="defaultModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -170,18 +156,16 @@
                                                 <div hidden class="form-group">
                                                     <label for="recipient-name" class="col-form-label">Nama
                                                     </label>
-                                                    <input type="text" value="{{ $caleg->id }}" name="id_caleg"
-                                                        class="form-control" id="recipient-name" required>
+                                                    <input type="text" value="{{ $caleg->id }}" name="id_caleg" class="form-control" id="recipient-name" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="example-select">Kecamatan</label>
-                                                    <select name="id_kecamatan" class="form-control"
-                                                        id="example-select">
+                                                    <select name="id_kecamatan" class="form-control" id="example-select">
                                                         <option selected disabled>Pilih Kecamatan</option>
                                                         @foreach($kecamatan as $data )
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
+                                                        <option value="{{ $data->id }}">{{ $data->name }}
+                                                        </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -189,8 +173,7 @@
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn mb-2 btn-danger"
-                                                    data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn mb-2 btn-success">Save
                                                 </button>
                                             </div>
@@ -219,14 +202,14 @@
 
 
         lengthMenu: [
-            [10, 25, 50, -1],
-            ['10 rows', '25 rows', '50 rows', 'Show all']
+            [10, 25, 50, -1]
+            , ['10 rows', '25 rows', '50 rows', 'Show all']
         ],
 
         buttons: [{
-                extend: 'colvis',
-                className: 'btn btn-primary btn-sm',
-                text: 'Column Visibility',
+                extend: 'colvis'
+                , className: 'btn btn-primary btn-sm'
+                , text: 'Column Visibility',
                 // columns: ':gt(0)'
 
 
@@ -234,9 +217,9 @@
 
             {
 
-                extend: 'pageLength',
-                className: 'btn btn-primary btn-sm',
-                text: 'Page Length',
+                extend: 'pageLength'
+                , className: 'btn btn-primary btn-sm'
+                , text: 'Page Length',
                 // columns: ':gt(0)'
             },
 
@@ -244,9 +227,9 @@
             // 'colvis', 'pageLength',
 
             {
-                extend: 'excel',
-                className: 'btn btn-primary btn-sm',
-                exportOptions: {
+                extend: 'excel'
+                , className: 'btn btn-primary btn-sm'
+                , exportOptions: {
                     columns: [0, ':visible']
                 }
             },
@@ -259,17 +242,17 @@
             //     }
             // },
             {
-                extend: 'pdf',
-                className: 'btn btn-primary btn-sm',
-                exportOptions: {
+                extend: 'pdf'
+                , className: 'btn btn-primary btn-sm'
+                , exportOptions: {
                     columns: [0, ':visible']
                 }
             },
 
             {
-                extend: 'print',
-                className: 'btn btn-primary btn-sm',
-                exportOptions: {
+                extend: 'print'
+                , className: 'btn btn-primary btn-sm'
+                , exportOptions: {
                     columns: [0, ':visible']
                 }
             },
@@ -277,52 +260,52 @@
             // 'pageLength', 'colvis',
             // 'copy', 'csv', 'excel', 'print'
 
-        ],
-    });
+        ]
+    , });
 
 </script>
 @endsection
 
 @section('sweetalert')
 @if(Session::get('update'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Good',
-            text: 'Data Berhasil Di Update',
-        });
+<script>
+    Swal.fire({
+        icon: 'success'
+        , title: 'Good'
+        , text: 'Data Berhasil Di Update'
+    , });
 
-    </script>
+</script>
 @endif
 @if(Session::get('delete'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Good',
-            text: 'Data Berhasil Di Hapus',
-        });
+<script>
+    Swal.fire({
+        icon: 'success'
+        , title: 'Good'
+        , text: 'Data Berhasil Di Hapus'
+    , });
 
-    </script>
+</script>
 @endif
 @if(Session::get('create'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Good',
-            text: 'Data Berhasil Di Tambahkan',
-        });
+<script>
+    Swal.fire({
+        icon: 'success'
+        , title: 'Good'
+        , text: 'Data Berhasil Di Tambahkan'
+    , });
 
-    </script>
+</script>
 @endif
 @if(Session::get('gagal'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Good',
-            text: 'Data Gagal Di Tambahkan',
-        });
+<script>
+    Swal.fire({
+        icon: 'success'
+        , title: 'Good'
+        , text: 'Data Gagal Di Tambahkan'
+    , });
 
-    </script>
+</script>
 @endif
 
 @endsection
