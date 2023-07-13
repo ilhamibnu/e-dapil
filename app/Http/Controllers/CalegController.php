@@ -416,20 +416,42 @@ class CalegController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nik' => 'unique:tb_detail_pemilih',
+            // 'nik' => 'unique:tb_detail_pemilih',
             'alamat' => 'required',
         ], [
             'name.required' => 'Nama Pemilih tidak boleh kosong',
-            'nik.unique' => 'NIK Pemilih sudah terdaftar',
+            // 'nik.unique' => 'NIK Pemilih sudah terdaftar',
             'alamat.required' => 'Alamat Pemilih tidak boleh kosong',
         ]);
 
-        $detailpemilih = new DetailPemilih;
-        $detailpemilih->name = $request->name;
-        $detailpemilih->nik = $request->nik;
-        $detailpemilih->alamat = $request->alamat;
-        $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
-        $detailpemilih->save();
+        if ($request->nik == null) {
+
+            $detailpemilih = new DetailPemilih;
+            $detailpemilih->name = $request->name;
+            $detailpemilih->nik = '-';
+            $detailpemilih->alamat = $request->alamat;
+            $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
+            $detailpemilih->save();
+        } else {
+
+            // cek nik sudah terdaftar atau belum
+
+            $cek = DetailPemilih::where('nik', '=', $request->nik)->count();
+
+            if ($cek > 0) {
+                return redirect()->back()->with('niksudahada', 'NIK Pemilih sudah terdaftar');
+            } else {
+
+                $detailpemilih = new DetailPemilih;
+                $detailpemilih->name = $request->name;
+                $detailpemilih->nik = $request->nik;
+                $detailpemilih->alamat = $request->alamat;
+                $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
+                $detailpemilih->save();
+            }
+        }
+
+
         return redirect()->back()->with('create', 'Data Detail Pemilih berhasil ditambahkan');
     }
 
@@ -437,7 +459,7 @@ class CalegController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'nik' => 'unique:tb_detail_pemilih,nik,' . $id,
+            // 'nik' => 'unique:tb_detail_pemilih,nik,' . $id,
             'alamat' => 'required',
         ], [
             'name.required' => 'Nama Pemilih tidak boleh kosong',
@@ -445,12 +467,33 @@ class CalegController extends Controller
             'alamat.required' => 'Alamat Pemilih tidak boleh kosong',
         ]);
 
-        $detailpemilih = DetailPemilih::find($id);
-        $detailpemilih->name = $request->name;
-        $detailpemilih->nik = $request->nik;
-        $detailpemilih->alamat = $request->alamat;
-        $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
-        $detailpemilih->save();
+        if ($request->nik == null) {
+
+            $detailpemilih = DetailPemilih::find($id);
+            $detailpemilih->name = $request->name;
+            $detailpemilih->nik = '-';
+            $detailpemilih->alamat = $request->alamat;
+            $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
+            $detailpemilih->save();
+        } else {
+
+            // cek nik sudah terdaftar atau belum
+
+            $cek = DetailPemilih::where('nik', '=', $request->nik)->where('id', '!=', $id)->count();
+
+            if ($cek > 0) {
+                return redirect()->back()->with('niksudahada', 'NIK Pemilih sudah terdaftar');
+            } else {
+
+                $detailpemilih = DetailPemilih::find($id);
+                $detailpemilih->name = $request->name;
+                $detailpemilih->nik = $request->nik;
+                $detailpemilih->alamat = $request->alamat;
+                $detailpemilih->id_detail_relawan = $request->id_detail_relawan;
+                $detailpemilih->save();
+            }
+        }
+
         return redirect()->back()->with('update', 'Data Detail Pemilih berhasil diubah');
     }
 
@@ -749,6 +792,100 @@ class CalegController extends Controller
 
         return view('admin.pages.report-pemilih', [
             'datapemilih' => $datapemilih,
+            'datacaleg' => $datacaleg,
+            'datakecamatan' => $datakecamatan,
+            'datadesa' => $datadesa,
+        ]);
+    }
+
+
+    public function indexreportrelawan()
+    {
+        $datacaleg = Caleg::all();
+        $datakecamatan = Kecamatan::all();
+        // $datadesa = Desa::all();
+
+        $test = DB::table('tb_detail_relawan')
+            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+            ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+            ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+            ->where('tb_kecamatan.id', '=', 0)
+            ->where('tb_desa.id', '=', 0)
+            ->get();
+
+        return view('admin.pages.report-relawan', [
+            'datakecamatan' => $datakecamatan,
+            // 'datadesa' => $datadesa,
+            'datacaleg' => $datacaleg,
+            'datarelawan' => $test,
+        ]);
+    }
+
+    public function tampildesarelawan($id)
+    {
+        $datadesa = Desa::where('id_kecamatan', '=', $id)->get();
+        return response()->json($datadesa);
+    }
+
+    public function reportrelawan(Request $request)
+    {
+        $request->validate([
+            'id_caleg' => 'required',
+            'id_kecamatan' => 'required',
+        ], [
+            'id_caleg.required' => 'Pilih Caleg',
+            'id_kecamatan.required' => 'Pilih Kecamatan',
+        ]);
+
+        $id_caleg = $request->id_caleg;
+        $id_kecamatan = $request->id_kecamatan;
+        $id_desa = $request->id_desa;
+
+
+        if ($id_desa == null) {
+
+            $datarelawan = DB::table('tb_detail_relawan')
+                ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+                ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+                ->where('tb_caleg.id', '=', $id_caleg)
+                ->where('tb_kecamatan.id', '=', $id_kecamatan)
+                ->get();
+        } else {
+            $datarelawan = DB::table('tb_detail_relawan')
+                ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+                ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+                ->where('tb_caleg.id', '=', $id_caleg)
+                ->where('tb_kecamatan.id', '=', $id_kecamatan)
+                ->where('tb_desa.id', '=', $id_desa)
+                ->get();
+        }
+
+        $datacaleg = Caleg::all();
+        $datakecamatan = Kecamatan::all();
+        $datadesa = Desa::all();
+
+        return view('admin.pages.report-relawan', [
+            'datarelawan' => $datarelawan,
             'datacaleg' => $datacaleg,
             'datakecamatan' => $datakecamatan,
             'datadesa' => $datadesa,

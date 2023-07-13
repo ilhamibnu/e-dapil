@@ -77,6 +77,13 @@ Route::post('/report-pemilih', [CalegController::class, 'reportpemilih'])->middl
 
 Route::get('/tampildesa/{id}', [CalegController::class, 'tampildesa'])->middleware('IsLogin');
 
+// report relawan
+Route::get('/report-relawan', [CalegController::class, 'indexreportrelawan'])->middleware('IsLogin');
+Route::post('/report-relawan', [CalegController::class, 'reportrelawan'])->middleware('IsLogin');
+
+Route::get('/tampildesarelawan/{id}', [CalegController::class, 'tampildesarelawan'])->middleware('IsLogin');
+
+
 Route::get('/kecamatan', [KecamatanController::class, 'index'])->middleware('IsLogin');
 Route::post('/kecamatan', [KecamatanController::class, 'store'])->middleware('IsLogin');
 Route::put('/kecamatan/{id}', [KecamatanController::class, 'update'])->middleware('IsLogin');
@@ -96,4 +103,4 @@ Route::get('/caridesa/{id}', [TpsController::class, 'caridesa'])->middleware('Is
 Route::get('/relawan', [RelawanController::class, 'index'])->middleware('IsLogin');
 Route::post('/relawan', [RelawanController::class, 'store'])->middleware('IsLogin');
 Route::put('/relawan/{id}', [RelawanController::class, 'update'])->middleware('IsLogin');
-Route::delete('/relawan/{id}', [RelawanController::class, 'delete'])->middleware('IsLogin');
+Route::delete('/relawan/{id}', [RelawanController::class, 'destroy'])->middleware('IsLogin');

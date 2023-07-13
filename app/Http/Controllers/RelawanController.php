@@ -28,22 +28,37 @@ class RelawanController extends Controller
     {
         $request->validate([
             'id_tps' => 'required',
-            'nik' => 'unique:tb_relawan,nik',
+            // 'nik' => 'unique:tb_relawan,nik',
             'name' => 'required',
             'alamat' => 'required'
         ], [
             'id_tps.required' => 'Nama TPS harus diisi!',
             'name.required' => 'Nama relawan harus diisi!',
-            'nik.unique' => 'NIK sudah terdaftar!',
+            // 'nik.unique' => 'NIK sudah terdaftar!',
             'alamat.required' => 'Alamat relawan harus diisi!'
         ]);
 
-        Relawan::create([
-            'id_tps' => $request->id_tps,
-            'name' => $request->name,
-            'nik' => $request->nik,
-            'alamat' => $request->alamat
-        ]);
+        if ($request->nik == null) {
+            Relawan::create([
+                'id_tps' => $request->id_tps,
+                'name' => $request->name,
+                'nik' => '-',
+                'alamat' => $request->alamat
+            ]);
+        } else {
+            // cek apakah nik sudah terdaftar
+            $cek = Relawan::where('nik', $request->nik)->first();
+            if ($cek) {
+                return redirect('/relawan')->with('niksudahada', 'NIK sudah terdaftar!');
+            } else {
+                Relawan::create([
+                    'id_tps' => $request->id_tps,
+                    'name' => $request->name,
+                    'nik' => $request->nik,
+                    'alamat' => $request->alamat
+                ]);
+            }
+        }
 
         return redirect('/relawan')->with('create', 'Relawan berhasil ditambahkan!');
     }
@@ -53,22 +68,37 @@ class RelawanController extends Controller
         $request->validate([
             'id_tps' => 'required',
             'name' => 'required',
-            'nik' => 'unique:tb_relawan,nik,' . $id,
+            // 'nik' => 'unique:tb_relawan,nik,' . $id,
             'alamat' => 'required'
         ], [
             'name.required' => 'Nama relawan harus diisi!',
-            'nik.unique' => 'NIK sudah terdaftar!',
+            // 'nik.unique' => 'NIK sudah terdaftar!',
             'alamat.required' => 'Alamat relawan harus diisi!',
             'id_tps.required' => 'Nama TPS harus diisi!',
         ]);
 
-        $update = Relawan::find($id);
-        $update->id_tps = $request->id_tps;
-        $update->name = $request->name;
-        $update->nik = $request->nik;
-        $update->alamat = $request->alamat;
-        $update->save();
 
+        if ($request->nik == null) {
+            $update = Relawan::find($id);
+            $update->id_tps = $request->id_tps;
+            $update->name = $request->name;
+            $update->nik = '-';
+            $update->alamat = $request->alamat;
+            $update->save();
+        } else {
+            // cek apakah nik sudah terdaftar
+            $cek = Relawan::where('nik', $request->nik)->where('id', '!=', $id)->first();
+            if ($cek) {
+                return redirect('/relawan')->with('niksudahada', 'NIK sudah terdaftar!');
+            } else {
+                $update = Relawan::find($id);
+                $update->id_tps = $request->id_tps;
+                $update->name = $request->name;
+                $update->nik = $request->nik;
+                $update->alamat = $request->alamat;
+                $update->save();
+            }
+        }
         return redirect('/relawan')->with('update', 'Relawan berhasil diubah!');
     }
 

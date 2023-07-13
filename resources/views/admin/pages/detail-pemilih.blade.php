@@ -297,6 +297,16 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('niksudahada'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Nik Sudah Ada'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({

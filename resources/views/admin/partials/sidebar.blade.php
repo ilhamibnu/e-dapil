@@ -69,6 +69,14 @@
                     <span class="ml-3 item-text">Report Jumlah Relawan</span>
                 </a>
             </li>
+
+            <li class="nav-item w-100">
+                <a class="nav-link" href="/report-relawan">
+                    <i class="fe fe-trending-down fe-16"></i>
+                    <span class="ml-3 item-text">Report Relawan</span>
+                </a>
+            </li>
+
             <li class="nav-item w-100">
                 <a class="nav-link" href="/report-pemilih">
                     <i class="fe fe-bar-chart fe-16"></i>
