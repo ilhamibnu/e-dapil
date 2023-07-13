@@ -157,7 +157,7 @@
                                                 <div class="form-group">
                                                     <label for="example-select">Relawan</label>
                                                     <select name="id_relawan" class="form-control" id="example-select">
-                                                        <option selected disabled>Pilih TPS</option>
+                                                        <option selected disabled>Pilih Relawan</option>
                                                         @foreach($datarelawan as $data )
                                                         <option value="{{ $data->id }}">{{ $data->name }}
                                                         </option>

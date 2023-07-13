@@ -6,15 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="https://pks.id/favicon.ico?v=2022">
+    <link rel="icon" type="image/x-icon" href="https://pks.id/favicon.ico?v=2022">
+    <link rel="apple-touch-icon" href="https://pks.id/apple-touch-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="https://pks.id/apple-touch-icon.png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - E-Dapil</title>
     <!-- Simple bar CSS -->
     <link rel="stylesheet" href="{{ asset('admin/css/simplebar.css') }}">
     <!-- Fonts CSS -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{{ asset('admin/css/datatablesbutton.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/dataTables.bootstrap4.css') }}">
@@ -39,8 +40,7 @@
         @include('admin.partials.sidebar')
         <main role="main" class="main-content">
             @yield('content')
-            <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog"
-                aria-labelledby="defaultModalLabel" aria-hidden="true">
+            <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -111,8 +111,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog"
-                aria-labelledby="defaultModalLabel" aria-hidden="true">
+            <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -185,14 +184,12 @@
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Name</label>
-                    <input type="text" name="nama" value="{{ Auth::User()->nama }}" class="form-control"
-                        id="recipient-name">
+                    <input type="text" name="nama" value="{{ Auth::User()->nama }}" class="form-control" id="recipient-name">
                 </div>
 
                 <div class="form-group">
                     <label for="recipient-name" class="col-form-label">Email</label>
-                    <input type="email" name="email" value="{{ Auth::User()->email }}" class="form-control"
-                        id="recipient-name">
+                    <input type="email" name="email" value="{{ Auth::User()->email }}" class="form-control" id="recipient-name">
                 </div>
 
                 <div class="form-group">
@@ -220,8 +217,7 @@
     </div> --}}
 
     <!-- Logout Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -242,8 +238,7 @@
     </div>
     </main> <!-- main -->
     </div> <!-- .wrapper -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     {{-- <script src="{{ asset('admin/js/jquery.min.js') }}"></script> --}}
     <script src="{{ asset('admin/js/popper.min.js') }}"></script>
     <script src="{{ asset('admin/js/moment.min.js') }}"></script>
@@ -295,31 +290,31 @@
 
     <script>
         $('.select2').select2({
-            theme: 'bootstrap4',
-        });
+            theme: 'bootstrap4'
+        , });
         $('.select2-multi').select2({
-            multiple: true,
-            theme: 'bootstrap4',
-        });
+            multiple: true
+            , theme: 'bootstrap4'
+        , });
         $('.drgpicker').daterangepicker({
-            singleDatePicker: true,
-            timePicker: false,
-            showDropdowns: true,
-            locale: {
+            singleDatePicker: true
+            , timePicker: false
+            , showDropdowns: true
+            , locale: {
                 format: 'MM/DD/YYYY'
             }
         });
         $('.time-input').timepicker({
-            'scrollDefault': 'now',
-            'zindex': '9999' /* fix modal open */
+            'scrollDefault': 'now'
+            , 'zindex': '9999' /* fix modal open */
         });
         /** date range picker */
         if ($('.datetimes').length) {
             $('.datetimes').daterangepicker({
-                timePicker: true,
-                startDate: moment().startOf('hour'),
-                endDate: moment().startOf('hour').add(32, 'hour'),
-                locale: {
+                timePicker: true
+                , startDate: moment().startOf('hour')
+                , endDate: moment().startOf('hour').add(32, 'hour')
+                , locale: {
                     format: 'M/DD hh:mm A'
                 }
             });
@@ -331,15 +326,15 @@
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
         $('#reportrange').daterangepicker({
-            startDate: start,
-            endDate: end,
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month')
+            startDate: start
+            , endDate: end
+            , ranges: {
+                'Today': [moment(), moment()]
+                , 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')]
+                , 'Last 7 Days': [moment().subtract(6, 'days'), moment()]
+                , 'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+                , 'This Month': [moment().startOf('month'), moment().endOf('month')]
+                , 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month')
                     .endOf(
                         'month')
                 ]
@@ -360,11 +355,11 @@
         $('.input-ip').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
             translation: {
                 'Z': {
-                    pattern: /[0-9]/,
-                    optional: true
+                    pattern: /[0-9]/
+                    , optional: true
                 }
-            },
-            placeholder: "___.___.___.___"
+            }
+            , placeholder: "___.___.___.___"
         });
         // editor
         var editor = document.getElementById('editor');
@@ -372,37 +367,37 @@
             var toolbarOptions = [
                 [{
                     'font': []
-                }],
-                [{
+                }]
+                , [{
                     'header': [1, 2, 3, 4, 5, 6, false]
-                }],
-                ['bold', 'italic', 'underline', 'strike'],
-                ['blockquote', 'code-block'],
-                [{
+                }]
+                , ['bold', 'italic', 'underline', 'strike']
+                , ['blockquote', 'code-block']
+                , [{
                         'header': 1
-                    },
-                    {
+                    }
+                    , {
                         'header': 2
                     }
-                ],
-                [{
+                ]
+                , [{
                         'list': 'ordered'
-                    },
-                    {
+                    }
+                    , {
                         'list': 'bullet'
                     }
-                ],
-                [{
+                ]
+                , [{
                         'script': 'sub'
-                    },
-                    {
+                    }
+                    , {
                         'script': 'super'
                     }
-                ],
-                [{
+                ]
+                , [{
                         'indent': '-1'
-                    },
-                    {
+                    }
+                    , {
                         'indent': '+1'
                     }
                 ], // outdent/indent
@@ -411,32 +406,32 @@
                 }], // text direction
                 [{
                         'color': []
-                    },
-                    {
+                    }
+                    , {
                         'background': []
                     }
                 ], // dropdown with defaults from theme
                 [{
                     'align': []
-                }],
-                ['clean'] // remove formatting button
+                }]
+                , ['clean'] // remove formatting button
             ];
             var quill = new Quill(editor, {
                 modules: {
                     toolbar: toolbarOptions
-                },
-                theme: 'snow'
+                }
+                , theme: 'snow'
             });
         }
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function () {
+        (function() {
             'use strict';
-            window.addEventListener('load', function () {
+            window.addEventListener('load', function() {
                 // Fetch all the forms we want to apply custom Bootstrap validation styles to
                 var forms = document.getElementsByClassName('needs-validation');
                 // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function (form) {
-                    form.addEventListener('submit', function (event) {
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
@@ -452,13 +447,13 @@
         var uptarg = document.getElementById('drag-drop-area');
         if (uptarg) {
             var uppy = Uppy.Core().use(Uppy.Dashboard, {
-                inline: true,
-                target: uptarg,
-                proudlyDisplayPoweredByUppy: false,
-                theme: 'dark',
-                width: 770,
-                height: 210,
-                plugins: ['Webcam']
+                inline: true
+                , target: uptarg
+                , proudlyDisplayPoweredByUppy: false
+                , theme: 'dark'
+                , width: 770
+                , height: 210
+                , plugins: ['Webcam']
             }).use(Uppy.Tus, {
                 endpoint: 'https://master.tus.io/files/'
             });

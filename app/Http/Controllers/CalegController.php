@@ -694,7 +694,7 @@ class CalegController extends Controller
         return response()->json($datadesa);
     }
 
-    public function reportpemilih(Request $request, $id)
+    public function reportpemilih(Request $request)
     {
         $request->validate([
             'id_caleg' => 'required',

@@ -45,7 +45,7 @@
                                             <th>No</th>
                                             <th>Nama Caleg</th>
                                             @foreach($ambiltps as $datatps)
-                                            <th><a href="/report5/{{ $datatps->id }}">{{ $datatps->name }}</a></th>
+                                            <th>{{ $datatps->name }}</th>
                                             @endforeach
 
                                         </tr>
