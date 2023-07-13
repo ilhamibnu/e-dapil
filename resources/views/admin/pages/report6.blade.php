@@ -47,6 +47,7 @@
                                             @foreach($ambildesa as $datadesa)
                                             <th><a href="/report7/{{ $datadesa->id }}">{{ $datadesa->name }}</a></th>
                                             @endforeach
+                                            <th>Jumlah</th>
 
                                         </tr>
                                     </thead>
@@ -73,6 +74,22 @@
                                                 {{ $ambiljumlahrelawan }}
                                             </td>
                                             @endforeach
+                                            <td>
+                                                <?php
+                                            $ambiljumlahrelawan = DB::table('tb_detail_relawan')
+                                            ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                                            ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                                            ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                                            ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                                            ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                                            ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                                            ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                                            ->where('tb_caleg.id', '=', $datacaleg->id)
+                                            ->where('tb_kecamatan.id', '=', $idkecamatan)
+                                            ->count();
+                                            ?>
+                                                {{ $ambiljumlahrelawan }}
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
