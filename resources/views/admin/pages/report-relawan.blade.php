@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Report Pemilih')
+@section('title', 'Report Relawan')
 
 @section('content')
 <div class="container-fluid">
@@ -29,7 +29,7 @@
                             </div>
                             @endif
                             <div class="card card-shadow row items-align-baseline mt-5 mb-5">
-                                <form action="report-pemilih" method="post">
+                                <form action="/report-relawan" method="post">
                                     @csrf
                                     @method('POST')
                                     <div class="form-group">
@@ -90,7 +90,7 @@
                                         @foreach ($datarelawan as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $data->pemilih }}</td>
+                                            <td>{{ $data->relawan }}</td>
                                             <td>{{ $data->alamat }}</td>
                                         </tr>
                                         @endforeach

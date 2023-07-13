@@ -741,10 +741,10 @@ class CalegController extends Controller
     {
         $request->validate([
             'id_caleg' => 'required',
-            'id_kecamatan' => 'required',
+            // 'id_kecamatan' => 'required',
         ], [
             'id_caleg.required' => 'Pilih Caleg',
-            'id_kecamatan.required' => 'Pilih Kecamatan',
+            // 'id_kecamatan.required' => 'Pilih Kecamatan',
         ]);
 
         $id_caleg = $request->id_caleg;
@@ -752,8 +752,22 @@ class CalegController extends Controller
         $id_desa = $request->id_desa;
 
 
-        if ($id_desa == null) {
+        if ($id_kecamatan == null) {
 
+            $datapemilih = DB::table('tb_detail_pemilih')
+                ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
+                ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+                ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+                ->where('tb_caleg.id', '=', $id_caleg)
+                ->get();
+        } elseif ($id_desa == null) {
             $datapemilih = DB::table('tb_detail_pemilih')
                 ->join('tb_detail_relawan', 'tb_detail_pemilih.id_detail_relawan', '=', 'tb_detail_relawan.id')
                 ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
@@ -837,10 +851,10 @@ class CalegController extends Controller
     {
         $request->validate([
             'id_caleg' => 'required',
-            'id_kecamatan' => 'required',
+            // 'id_kecamatan' => 'required',
         ], [
             'id_caleg.required' => 'Pilih Caleg',
-            'id_kecamatan.required' => 'Pilih Kecamatan',
+            // 'id_kecamatan.required' => 'Pilih Kecamatan',
         ]);
 
         $id_caleg = $request->id_caleg;
@@ -848,7 +862,21 @@ class CalegController extends Controller
         $id_desa = $request->id_desa;
 
 
-        if ($id_desa == null) {
+        if ($id_kecamatan == null) {
+
+            $datarelawan = DB::table('tb_detail_relawan')
+                ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
+                ->join('tb_detail_tps', 'tb_detail_relawan.id_detail_tps', '=', 'tb_detail_tps.id')
+                ->join('tb_tps', 'tb_detail_tps.id_tps', '=', 'tb_tps.id')
+                ->join('tb_detail_desa', 'tb_detail_tps.id_detail_desa', '=', 'tb_detail_desa.id')
+                ->join('tb_desa', 'tb_detail_desa.id_desa', '=', 'tb_desa.id')
+                ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
+                ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
+                ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
+                ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+                ->where('tb_caleg.id', '=', $id_caleg)
+                ->get();
+        } elseif ($id_desa == null) {
 
             $datarelawan = DB::table('tb_detail_relawan')
                 ->join('tb_relawan', 'tb_detail_relawan.id_relawan', '=', 'tb_relawan.id')
