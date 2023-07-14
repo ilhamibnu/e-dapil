@@ -14,7 +14,7 @@ class RelawanController extends Controller
         $relawan = DB::table('tb_relawan')
             ->join('tb_tps', 'tb_relawan.id_tps', '=', 'tb_tps.id')
             ->join('tb_desa', 'tb_tps.id_desa', '=', 'tb_desa.id')
-            ->select('tb_relawan.id', 'tb_relawan.name as relawan', 'tb_relawan.nik as nik', 'tb_relawan.alamat as alamat', 'tb_tps.id as id_tps', 'tb_tps.name as tps', 'tb_desa.name as desa')
+            ->select('tb_relawan.*', 'tb_tps.id as id_tps', 'tb_tps.name as tps', 'tb_desa.name as desa')
             ->get();
 
         $tps = Tps::with('desa')->get();

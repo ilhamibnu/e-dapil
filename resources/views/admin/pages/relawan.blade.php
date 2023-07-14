@@ -57,7 +57,7 @@
                                         @foreach($relawan as $data)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td>{{ $data->relawan }}</td>
+                                            <td>{{ $data->name }}</td>
                                             <td>{{ $data->nik }}</td>
                                             <td>{{ $data->alamat }}</td>
                                             <td>{{ $data->tps }}</td>
@@ -85,7 +85,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Yakin Ingin Menghapus Data?
+                                                        Yakin Ingin Menghapus Data {{ $data->name }}?
                                                     </div>
                                                     <form action="/relawan/{{ $data->id }}" method="post">
                                                         @csrf
@@ -119,9 +119,9 @@
                                                                 <select name="id_tps" class="form-control" id="example-select">
                                                                     <option selected value="{{ $data->id_tps }}">
                                                                         {{ $data->tps }} - {{ $data->desa }}</option>
-                                                                    @foreach ($tps as $data)
-                                                                    <option value="{{ $data->id }}">
-                                                                        {{ $data->name }} - {{ $data->desa->name }}</option>
+                                                                    @foreach ($tps as $dataa)
+                                                                    <option value="{{ $dataa->id }}">
+                                                                        {{ $dataa->name }} - {{ $dataa->desa->name }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -131,8 +131,10 @@
                                                                 <label for="recipient-name" class="col-form-label">Nama
 
                                                                 </label>
-                                                                <input type="text" value="" name="name" class="form-control" id="recipient-name">
+                                                                <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name">
                                                             </div>
+
+                                                            @if($data->nik == '-')
 
                                                             <div class="form-group">
                                                                 <label for="recipient-name" class="col-form-label">Nik
@@ -141,11 +143,25 @@
                                                                 <input type="text" value="" name="nik" class="form-control" id="recipient-name">
                                                             </div>
 
+                                                            @else
+
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Nik
+
+                                                                </label>
+                                                                <input type="text" value="{{ $data->nik }}" name="nik" class="form-control" id="recipient-name">
+                                                            </div>
+
+
+                                                            @endif
+
+
+
                                                             <div class="form-group">
 
                                                                 <label for="recipient-name" class="col-form-label">Alamat
                                                                 </label>
-                                                                <textarea class="form-control" name="alamat" cols="30" rows="5"></textarea>
+                                                                <textarea class="form-control" name="alamat" cols="30" rows="5">{{ $data->alamat }}</textarea>
                                                             </div>
 
 

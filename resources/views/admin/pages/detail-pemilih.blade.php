@@ -119,12 +119,26 @@
                                                                 <input type="text" value="{{ $data->name }}" name="name" class="form-control" id="recipient-name" required>
                                                             </div>
 
-                                                            <div class="form-group">
+                                                            @if($data->nik == '-')
 
+                                                            <div class="form-group">
                                                                 <label for="recipient-name" class="col-form-label">Nik
+
+                                                                </label>
+                                                                <input type="text" value="" name="nik" class="form-control" id="recipient-name">
+                                                            </div>
+
+                                                            @else
+
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Nik
+
                                                                 </label>
                                                                 <input type="text" value="{{ $data->nik }}" name="nik" class="form-control" id="recipient-name">
                                                             </div>
+
+
+                                                            @endif
 
                                                             <div class="form-group">
 
