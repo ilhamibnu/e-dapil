@@ -97,7 +97,7 @@ Route::delete('/desa/{id}', [DesaController::class, 'delete'])->middleware('IsLo
 Route::get('/tps', [TpsController::class, 'index'])->middleware('IsLogin');
 Route::post('/tps', [TpsController::class, 'store'])->middleware('IsLogin');
 Route::put('/tps/{id}', [TpsController::class, 'update'])->middleware('IsLogin');
-Route::delete('/tps/{id}', [TpsController::class, 'delete'])->middleware('IsLogin');
+Route::delete('/tps/{id}', [TpsController::class, 'destroy'])->middleware('IsLogin');
 Route::get('/caridesa/{id}', [TpsController::class, 'caridesa'])->middleware('IsLogin');
 
 Route::get('/relawan', [RelawanController::class, 'index'])->middleware('IsLogin');
