@@ -267,6 +267,26 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('kecamatancalegsudahada'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Sudah Ada'
+    , });
+
+</script>
+@endif
+@if(Session::get('relasidetaildesa'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Memiliki Relasi'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({

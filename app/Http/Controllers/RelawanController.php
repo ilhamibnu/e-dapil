@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailRelawan;
 use App\Models\Tps;
 use App\Models\Relawan;
 use Illuminate\Http\Request;
@@ -104,7 +105,15 @@ class RelawanController extends Controller
 
     public function destroy($id)
     {
-        Relawan::find($id)->delete();
-        return redirect('/relawan')->with('delete', 'Relawan berhasil dihapus!');
+        // cek apakah relawan sudah terdaftar di detail relawan
+
+        $cek = DetailRelawan::where('id_relawan', $id)->first();
+        if ($cek) {
+            return redirect('/relawan')->with('relasidetailrelawan', 'Relawan tidak dapat dihapus karena sudah terdaftar di detail relawan!');
+        } else {
+
+            Relawan::find($id)->delete();
+            return redirect('/relawan')->with('delete', 'Relawan berhasil dihapus!');
+        }
     }
 }

@@ -272,6 +272,16 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('relasicaleg'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Caleg Memiliki Relasi Dengan Data Lain'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({

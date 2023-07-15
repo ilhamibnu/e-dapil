@@ -304,6 +304,26 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('relasidetailtps'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Masih Terhubung Dengan Data Lain'
+    , });
+
+</script>
+@endif
+@if(Session::get('relasirelawan'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Masih Terhubung Dengan Data Lain'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({

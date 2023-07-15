@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Tps;
 use App\Models\Desa;
+use App\Models\DetailTps;
 use App\Models\Kecamatan;
+use App\Models\Relawan;
 use Illuminate\Http\Request;
 
 
@@ -98,7 +100,19 @@ class TpsController extends Controller
 
     public function destroy($id)
     {
-        Tps::find($id)->delete();
-        return redirect('/tps')->with('delete', 'TPS berhasil dihapus!');
+        // cek apakah tps sudah ada data detail tps atau belum
+        // cek apakah tps sudah ada data relawan atau belum
+
+        $cekdetailtps = DetailTps::where('id_tps', $id)->first();
+        $cekrelawan = Relawan::where('id_tps', $id)->first();
+
+        if ($cekdetailtps) {
+            return redirect('/tps')->with('relasidetailtps', 'TPS gagal dihapus karena sudah ada data detail TPS!');
+        } elseif ($cekrelawan) {
+            return redirect('/tps')->with('relasirelawan', 'TPS gagal dihapus karena sudah ada data relawan!');
+        } else {
+            Tps::find($id)->delete();
+            return redirect('/tps')->with('delete', 'TPS berhasil dihapus!');
+        }
     }
 }

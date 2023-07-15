@@ -242,6 +242,26 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('relasidetailkecamatan'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Ini Tidak Dapat Di Hapus Karena Memiliki Relasi Dengan Data Lain'
+    , });
+
+</script>
+@endif
+@if(Session::get('relasidesa'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Ini Tidak Dapat Di Hapus Karena Memiliki Relasi Dengan Data Lain'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({

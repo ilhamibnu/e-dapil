@@ -326,6 +326,16 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('relasidetailrelawan'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Masih Terhubung Dengan Data Lain'
+    , });
+
+</script>
+@endif
 @if(Session::get('niksudahada'))
 <script>
     Swal.fire({

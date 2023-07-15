@@ -91,10 +91,18 @@ class CalegController extends Controller
 
     public function delete($id)
     {
-        $caleg = Caleg::find($id);
-        File::delete('admin/foto/caleg/' . $caleg->foto);
-        $caleg->delete();
-        return redirect('/caleg')->with('delete', 'Data Caleg berhasil dihapus');
+        // cek apakah data caleg ada di tb_detail_kecamatan
+
+        $detailkecamatan = DetailKecamatan::where('id_caleg', '=', $id)->get();
+        if ($detailkecamatan->count() > 0) {
+            return redirect()->back()->with('relasicaleg', 'data caleg tidak bisa dihapus karena masih terdapat data detail kecamatan');
+        } else {
+
+            $caleg = Caleg::find($id);
+            File::delete('admin/foto/caleg/' . $caleg->foto);
+            $caleg->delete();
+            return redirect('/caleg')->with('delete', 'Data Caleg berhasil dihapus');
+        }
     }
 
     // detail kecamatan
@@ -126,11 +134,22 @@ class CalegController extends Controller
             'id_kecamatan.required' => 'Kecamatan tidak boleh kosong',
         ]);
 
-        $detailkecamatan = new DetailKecamatan;
-        $detailkecamatan->id_kecamatan = $request->id_kecamatan;
-        $detailkecamatan->id_caleg = $request->id_caleg;
-        $detailkecamatan->save();
-        return redirect()->back()->with('create', 'Data Detail Kecamatan berhasil ditambahkan');
+        // cek apakah data caleg dan kecamatan sudah ada di tb_detail_kecamatan
+
+        $detailkecamatan = DetailKecamatan::where('id_caleg', '=', $request->id_caleg)
+            ->where('id_kecamatan', '=', $request->id_kecamatan)
+            ->get();
+
+        if ($detailkecamatan->count() > 0) {
+            return redirect()->back()->with('kecamatancalegsudahada', 'data caleg dan kecamatan sudah ada');
+        } else {
+
+            $detailkecamatan = new DetailKecamatan;
+            $detailkecamatan->id_kecamatan = $request->id_kecamatan;
+            $detailkecamatan->id_caleg = $request->id_caleg;
+            $detailkecamatan->save();
+            return redirect()->back()->with('create', 'Data Detail Kecamatan berhasil ditambahkan');
+        }
     }
 
     public function updatedetailkecamatan(Request $request, $id)
@@ -150,9 +169,16 @@ class CalegController extends Controller
 
     public function deletedetailkecamatan($id)
     {
-        $detailkecamatan = DetailKecamatan::find($id);
-        $detailkecamatan->delete();
-        return redirect()->back()->with('delete', 'Data Detail Kecamatan berhasil dihapus');
+        // cek apakah data detail kecamatan ada di tb_detail_desa
+
+        $detaildesa = DetailDesa::where('id_detail_kecamatan', '=', $id)->get();
+        if ($detaildesa->count() > 0) {
+            return redirect()->back()->with('relasidetaildesa', 'data detail kecamatan tidak bisa dihapus karena masih terdapat data detail desa');
+        } else {
+            $detailkecamatan = DetailKecamatan::find($id);
+            $detailkecamatan->delete();
+            return redirect()->back()->with('delete', 'Data Detail Kecamatan berhasil dihapus');
+        }
     }
 
     // detail desa
@@ -195,11 +221,22 @@ class CalegController extends Controller
             'id_desa.required' => 'Desa tidak boleh kosong',
         ]);
 
-        $detaildesa = new DetailDesa;
-        $detaildesa->id_desa = $request->id_desa;
-        $detaildesa->id_detail_kecamatan = $request->id_detail_kecamatan;
-        $detaildesa->save();
-        return redirect()->back()->with('create', 'Data Detail Desa berhasil ditambahkan');
+        // cek apakah data caleg dan kecamatan sudah ada di tb_detail_kecamatan
+
+        $detaildesa = DetailDesa::where('id_detail_kecamatan', '=', $request->id_detail_kecamatan)
+            ->where('id_desa', '=', $request->id_desa)
+            ->get();
+
+        if ($detaildesa->count() > 0) {
+            return redirect()->back()->with('desasudahada', 'data caleg dan desa sudah ada');
+        } else {
+
+            $detaildesa = new DetailDesa;
+            $detaildesa->id_desa = $request->id_desa;
+            $detaildesa->id_detail_kecamatan = $request->id_detail_kecamatan;
+            $detaildesa->save();
+            return redirect()->back()->with('create', 'Data Detail Desa berhasil ditambahkan');
+        }
     }
 
     public function updatedetaildesa(Request $request, $id)
@@ -219,9 +256,17 @@ class CalegController extends Controller
 
     public function deletedetaildesa($id)
     {
-        $detaildesa = DetailDesa::find($id);
-        $detaildesa->delete();
-        return redirect()->back()->with('delete', 'Data Detail Desa berhasil dihapus');
+        // cek apakah data detail desa ada di tb_detail_tps
+
+        $detailtps = DetailTps::where('id_detail_desa', '=', $id)->get();
+        if ($detailtps->count() > 0) {
+            return redirect()->back()->with('relasidetailtps', 'data detail desa tidak bisa dihapus karena masih terdapat data detail tps');
+        } else {
+
+            $detaildesa = DetailDesa::find($id);
+            $detaildesa->delete();
+            return redirect()->back()->with('delete', 'Data Detail Desa berhasil dihapus');
+        }
     }
 
     // detail tps
@@ -264,11 +309,22 @@ class CalegController extends Controller
             'id_tps.required' => 'TPS tidak boleh kosong',
         ]);
 
-        $detailtps = new DetailTps;
-        $detailtps->id_tps = $request->id_tps;
-        $detailtps->id_detail_desa = $request->id_detail_desa;
-        $detailtps->save();
-        return redirect()->back()->with('create', 'Data Detail TPS berhasil ditambahkan');
+        // cek apakah data caleg dan desa sudah ada di tb_detail_tps
+
+        $detailtps = DetailTps::where('id_detail_desa', '=', $request->id_detail_desa)
+            ->where('id_tps', '=', $request->id_tps)
+            ->get();
+
+        if ($detailtps->count() > 0) {
+            return redirect()->back()->with('tpssudahada', 'data caleg dan tps sudah ada');
+        } else {
+
+            $detailtps = new DetailTps;
+            $detailtps->id_tps = $request->id_tps;
+            $detailtps->id_detail_desa = $request->id_detail_desa;
+            $detailtps->save();
+            return redirect()->back()->with('create', 'Data Detail TPS berhasil ditambahkan');
+        }
     }
 
     public function updatedetailtps(Request $request, $id)
@@ -288,9 +344,17 @@ class CalegController extends Controller
 
     public function deletedetailtps($id)
     {
-        $detailtps = DetailTps::find($id);
-        $detailtps->delete();
-        return redirect()->back()->with('delete', 'Data Detail TPS berhasil dihapus');
+        // cek apakah data detail tps ada di tb_detail_relawan
+
+        $detailrelawan = DetailRelawan::where('id_detail_tps', '=', $id)->get();
+        if ($detailrelawan->count() > 0) {
+            return redirect()->back()->with('relasidetailrelawan', 'data detail tps tidak bisa dihapus karena masih terdapat data detail relawan');
+        } else {
+
+            $detailtps = DetailTps::find($id);
+            $detailtps->delete();
+            return redirect()->back()->with('delete', 'Data Detail TPS berhasil dihapus');
+        }
     }
 
     // detail relawatan
@@ -342,12 +406,21 @@ class CalegController extends Controller
             'id_relawan.required' => 'Nama Relawan tidak boleh kosong',
         ]);
 
-        $detailrelawan = new DetailRelawan;
-        $detailrelawan->id_relawan = $request->id_relawan;
-        $detailrelawan->id_detail_tps = $request->id_detail_tps;
-        $detailrelawan->save();
+        // cek apakah data caleg dan desa sudah ada di tb_detail_tps
 
+        $detailrelawan = DetailRelawan::where('id_relawan', '=', $request->id_relawan)
+            ->where('id_detail_tps', '=', $request->id_detail_tps)
+            ->get();
 
+        if ($detailrelawan->count() > 0) {
+            return redirect()->back()->with('relawansudahada', 'data relawan dan tps sudah ada');
+        } else {
+
+            $detailrelawan = new DetailRelawan;
+            $detailrelawan->id_relawan = $request->id_relawan;
+            $detailrelawan->id_detail_tps = $request->id_detail_tps;
+            $detailrelawan->save();
+        }
 
         return redirect()->back()->with('create', 'Data Detail Relawan berhasil ditambahkan');
     }
@@ -369,9 +442,18 @@ class CalegController extends Controller
 
     public function deletedetailrelawan($id)
     {
-        $detailrelawan = DetailRelawan::find($id);
-        $detailrelawan->delete();
-        return redirect()->back()->with('delete', 'Data Detail Relawan berhasil dihapus');
+        // cek apakah data detail relawan ada di tb_detail_pemilih
+
+        $detailpemilih = DetailPemilih::where('id_detail_relawan', '=', $id)->get();
+        if ($detailpemilih->count() > 0) {
+            return redirect()->back()->with('relasidetailpemilih', 'data detail relawan tidak bisa dihapus karena masih terdapat data detail pemilih');
+        } else {
+
+            $detailrelawan = DetailRelawan::find($id);
+            $detailrelawan->delete();
+            return redirect()->back()->with('delete', 'Data Detail Relawan berhasil dihapus');
+        }
+
     }
 
     // detail pemilih

@@ -267,6 +267,26 @@
 @endsection
 
 @section('sweetalert')
+@if(Session::get('desasudahada'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Sudah Ada'
+    , });
+
+</script>
+@endif
+@if(Session::get('relasidetailtps'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Tidak Bisa Di Hapus Karena Ada Relasi'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({
