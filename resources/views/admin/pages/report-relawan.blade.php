@@ -82,6 +82,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Nama Relawan</th>
+                                            <th>NIK</th>
+                                            <th>Kecamatan</th>
+                                            <th>Desa</th>
+                                            <th>TPS</th>
                                             <th>Alamat</th>
                                         </tr>
                                     </thead>
@@ -91,6 +95,10 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $data->relawan }}</td>
+                                            <td>{{ $data->nik }}</td>
+                                            <td>{{ $data->kecamatan }}</td>
+                                            <td>{{ $data->desa }}</td>
+                                            <td>{{ $data->tps }}</td>
                                             <td>{{ $data->alamat }}</td>
                                         </tr>
                                         @endforeach

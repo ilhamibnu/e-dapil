@@ -453,7 +453,6 @@ class CalegController extends Controller
             $detailrelawan->delete();
             return redirect()->back()->with('delete', 'Data Detail Relawan berhasil dihapus');
         }
-
     }
 
     // detail pemilih
@@ -799,7 +798,7 @@ class CalegController extends Controller
             ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
             ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
             ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-            ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+            ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.nik as nik', 'tb_detail_pemilih.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
             ->where('tb_caleg.id', '=', 0)
             ->where('tb_kecamatan.id', '=', 0)
             ->where('tb_desa.id', '=', 0)
@@ -846,7 +845,7 @@ class CalegController extends Controller
                 ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                 ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                 ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.nik as nik', 'tb_detail_pemilih.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
                 ->where('tb_caleg.id', '=', $id_caleg)
                 ->get();
         } elseif ($id_desa == null) {
@@ -860,7 +859,7 @@ class CalegController extends Controller
                 ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                 ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                 ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.nik as nik', 'tb_detail_pemilih.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
                 ->where('tb_caleg.id', '=', $id_caleg)
                 ->where('tb_kecamatan.id', '=', $id_kecamatan)
                 ->get();
@@ -875,7 +874,7 @@ class CalegController extends Controller
                 ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                 ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                 ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.alamat as alamat')
+                ->select('tb_detail_pemilih.name as pemilih', 'tb_detail_pemilih.nik as nik', 'tb_detail_pemilih.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
                 ->where('tb_caleg.id', '=', $id_caleg)
                 ->where('tb_kecamatan.id', '=', $id_kecamatan)
                 ->where('tb_desa.id', '=', $id_desa)
@@ -910,7 +909,7 @@ class CalegController extends Controller
             ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
             ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
             ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-            ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+            ->select('tb_relawan.name as relawan', 'tb_relawan.nik as nik', 'tb_relawan.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
             ->where('tb_kecamatan.id', '=', 0)
             ->where('tb_desa.id', '=', 0)
             ->get();
@@ -955,7 +954,7 @@ class CalegController extends Controller
                 ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                 ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                 ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+                ->select('tb_relawan.name as relawan', 'tb_relawan.nik as nik', 'tb_relawan.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
                 ->where('tb_caleg.id', '=', $id_caleg)
                 ->get();
         } elseif ($id_desa == null) {
@@ -969,7 +968,7 @@ class CalegController extends Controller
                 ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                 ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                 ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+                ->select('tb_relawan.name as relawan', 'tb_relawan.nik as nik', 'tb_relawan.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
                 ->where('tb_caleg.id', '=', $id_caleg)
                 ->where('tb_kecamatan.id', '=', $id_kecamatan)
                 ->get();
@@ -983,7 +982,7 @@ class CalegController extends Controller
                 ->join('tb_kecamatan', 'tb_desa.id_kecamatan', '=', 'tb_kecamatan.id')
                 ->join('tb_detail_kecamatan', 'tb_detail_kecamatan.id', '=', 'tb_detail_desa.id_detail_kecamatan')
                 ->join('tb_caleg', 'tb_detail_kecamatan.id_caleg', '=', 'tb_caleg.id')
-                ->select('tb_relawan.name as relawan', 'tb_relawan.alamat as alamat')
+                ->select('tb_relawan.name as relawan', 'tb_relawan.nik as nik', 'tb_relawan.alamat as alamat', 'tb_kecamatan.name as kecamatan', 'tb_desa.name as desa', 'tb_tps.name as tps')
                 ->where('tb_caleg.id', '=', $id_caleg)
                 ->where('tb_kecamatan.id', '=', $id_kecamatan)
                 ->where('tb_desa.id', '=', $id_desa)
