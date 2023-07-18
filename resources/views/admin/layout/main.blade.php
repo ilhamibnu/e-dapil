@@ -168,8 +168,7 @@
                 </div>
             </div>
             <!-- Profil Modal -->
-            {{-- <div class="modal fade" id="profilModal" tabindex="-1" role="dialog"
-                aria-labelledby="defaultModalLabel" aria-hidden="true">
+            <div class="modal fade" id="profilModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -178,65 +177,65 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="/update-profile/{{ Auth::User()->id }}" method="POST">
-            @csrf
-            <div class="modal-body">
+                        <form action="/update-profil/{{ Auth::User()->id }}" method="POST">
+                            @csrf
+                            <div class="modal-body">
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Name</label>
-                    <input type="text" name="nama" value="{{ Auth::User()->nama }}" class="form-control" id="recipient-name">
-                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Name</label>
+                                    <input type="text" name="name" value="{{ Auth::User()->name }}" class="form-control" id="recipient-name">
+                                </div>
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Email</label>
-                    <input type="email" name="email" value="{{ Auth::User()->email }}" class="form-control" id="recipient-name">
-                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Email</label>
+                                    <input type="email" name="email" value="{{ Auth::User()->email }}" class="form-control" id="recipient-name">
+                                </div>
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Old Password</label>
-                    <input type="password" name="oldpassword" class="form-control" id="recipient-name">
-                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Old Password</label>
+                                    <input type="password" name="oldpassword" class="form-control" id="recipient-name">
+                                </div>
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="recipient-name">
-                </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" id="recipient-name">
+                                </div>
 
-                <div class="form-group">
-                    <label for="recipient-name" class="col-form-label">Repassword</label>
-                    <input type="password" name="repassword" class="form-control" id="recipient-name">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Repassword</label>
+                                    <input type="password" name="repassword" class="form-control" id="recipient-name">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn mb-2 btn-success">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn mb-2 btn-success">Save changes</button>
-            </div>
-            </form>
-    </div>
-    </div>
-    </div> --}}
 
-    <!-- Logout Modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="defaultModalLabel">Delete Modal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Yakin Ingin Keluar ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn mb-2 btn-success" data-dismiss="modal">Close</button>
-                    <a href="/logout" class="btn mb-2 btn-danger">Yes</a>
+            <!-- Logout Modal -->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="defaultModalLabel">Delete Modal</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Yakin Ingin Keluar ?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn mb-2 btn-success" data-dismiss="modal">Close</button>
+                            <a href="/logout" class="btn mb-2 btn-danger">Yes</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </main> <!-- main -->
+        </main> <!-- main -->
     </div> <!-- .wrapper -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     {{-- <script src="{{ asset('admin/js/jquery.min.js') }}"></script> --}}

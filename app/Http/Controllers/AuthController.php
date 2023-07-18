@@ -28,27 +28,25 @@ class AuthController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if ($user == null) {
-              
+
             return redirect()->intended('/login')->with('failed', 'login error');
-        }else{
+        } else {
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
 
                 return redirect()->intended('/index')->with('loginberhasil', 'login berhasil');
             } else {
                 return redirect()->intended('/login')->with('loginerror', 'login error');
-            } 
-
+            }
         }
-
     }
 
-    public function profilupdate(Request $request, $id)
+    public function updateprofil(Request $request, $id)
     {
         if ($request->oldpassword == null) {
             $request->validate(
                 [
-                    'nama' => 'required',
+                    'name' => 'required',
                     'email' => 'required|email|unique:tb_user,email,' . $id,
                 ],
                 [
@@ -59,7 +57,7 @@ class AuthController extends Controller
                 ]
             );
             $user = User::find($id);
-            $user->nama = $request->nama;
+            $user->name = $request->name;
             $user->email = $request->email;
             $user->save();
             return redirect()->intended('/index')->with('updateprofil', 'berhasil update profil');
@@ -67,19 +65,19 @@ class AuthController extends Controller
 
             $request->validate(
                 [
-                    'nama' => 'required',
+                    'name' => 'required',
                     'email' => 'required|email|unique:tb_user,email,' . $id,
                     'oldpassword' => 'required',
-                    'password' => 'required|min:8',
+                    'password' => 'required',
                     'repassword' => 'required|same:password',
                 ],
                 [
-                    'nama.required' => 'name tidak boleh kosong',
+                    'name.required' => 'name tidak boleh kosong',
                     'email.required' => 'email tidak boleh kosong',
                     'email.email' => 'email tidak valid',
                     'email.unique' => 'email sudah terdaftar',
                     'oldpassword.required' => 'oldpassword tidak boleh kosong',
-                    'password.min' => 'password minimal 8 karakter',
+                    // 'password.min' => 'password minimal 8 karakter',
                     'password.required' => 'password tidak boleh kosong',
                     'repassword.required' => 'repassword tidak boleh kosong',
                     'repassword.same' => 'repassword tidak sama dengan password',
@@ -91,7 +89,7 @@ class AuthController extends Controller
                 if ($request->password == $request->repassword) {
 
                     $user = User::find($id);
-                    $user->nama = $request->nama;
+                    $user->name = $request->name;
                     $user->email = $request->email;
                     $user->password = bcrypt($request->password);
                     $user->save();

@@ -29,6 +29,7 @@ Route::get('/', [LandingController::class, 'index']);
 Route::get('/login', [AuthController::class, 'index'])->middleware('IsStay');
 Route::post('/login', [AuthController::class, 'authenticate'])->middleware('IsStay');
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('IsLogin');
+Route::post('/update-profil/{id}', [AuthController::class, 'updateprofil'])->middleware('IsLogin');
 
 Route::get('/index', [DashboardController::class, 'index'])->middleware('IsLogin');
 Route::get('/caleg', [CalegController::class, 'index'])->middleware('IsLogin');
