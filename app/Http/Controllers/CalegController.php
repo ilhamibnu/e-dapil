@@ -46,15 +46,23 @@ class CalegController extends Controller
             'foto.mimes' => 'Foto harus berformat jpg, jpeg, png',
         ]);
 
-        $fileNameImage = time() . Rand(999, 999) . '.' . $request->foto->extension();
-        $request->foto->move(public_path('admin/foto/caleg/'), $fileNameImage);
+        // batas caleg 12
 
-        $caleg = new Caleg;
-        $caleg->name = $request->name;
-        $caleg->no_urut = $request->no_urut;
-        $caleg->foto = $fileNameImage;
-        $caleg->save();
-        return redirect('/caleg')->with('create', 'Data Caleg berhasil ditambahkan');
+        $caleg = Caleg::all();
+        if ($caleg->count() >= 12) {
+            return redirect()->back()->with('batascaleg', 'Data Caleg tidak bisa ditambahkan karena sudah mencapai batas maksimal');
+        } else {
+
+            $fileNameImage = time() . Rand(999, 999) . '.' . $request->foto->extension();
+            $request->foto->move(public_path('admin/foto/caleg/'), $fileNameImage);
+
+            $caleg = new Caleg;
+            $caleg->name = $request->name;
+            $caleg->no_urut = $request->no_urut;
+            $caleg->foto = $fileNameImage;
+            $caleg->save();
+            return redirect('/caleg')->with('create', 'Data Caleg berhasil ditambahkan');
+        }
     }
 
     public function update(Request $request, $id)
@@ -71,22 +79,30 @@ class CalegController extends Controller
             'foto.mimes' => 'Foto harus berformat jpg, jpeg, png',
         ]);
 
-        if ($request->foto) {
+        // batas caleg 12
+
+        $caleg = Caleg::all();
+        if ($caleg->count() >= 12) {
+            return redirect()->back()->with('batascaleg', 'Data Caleg tidak bisa ditambahkan karena sudah mencapai batas maksimal');
+        } else {
+
+            if ($request->foto) {
+                $caleg = Caleg::find($id);
+                File::delete('admin/foto/caleg/' . $caleg->foto);
+
+                $fileNameImage = time() . Rand(999, 999) . '.' . $request->foto->extension();
+                $request->foto->move(public_path('admin/foto/caleg/'), $fileNameImage);
+
+                $caleg->foto = $fileNameImage;
+                $caleg->save();
+            }
+
             $caleg = Caleg::find($id);
-            File::delete('admin/foto/caleg/' . $caleg->foto);
-
-            $fileNameImage = time() . Rand(999, 999) . '.' . $request->foto->extension();
-            $request->foto->move(public_path('admin/foto/caleg/'), $fileNameImage);
-
-            $caleg->foto = $fileNameImage;
+            $caleg->name = $request->name;
+            $caleg->no_urut = $request->no_urut;
             $caleg->save();
+            return redirect('/caleg')->with('update', 'Data Caleg berhasil diubah');
         }
-
-        $caleg = Caleg::find($id);
-        $caleg->name = $request->name;
-        $caleg->no_urut = $request->no_urut;
-        $caleg->save();
-        return redirect('/caleg')->with('update', 'Data Caleg berhasil diubah');
     }
 
     public function delete($id)

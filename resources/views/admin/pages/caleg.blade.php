@@ -282,6 +282,16 @@
 
 </script>
 @endif
+@if(Session::get('batascaleg'))
+<script>
+    Swal.fire({
+        icon: 'error'
+        , title: 'Oops...'
+        , text: 'Data Caleg Sudah Mencapai Batas'
+    , });
+
+</script>
+@endif
 @if(Session::get('update'))
 <script>
     Swal.fire({
