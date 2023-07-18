@@ -14,16 +14,20 @@
                             </span> --}}
                         </div>
 
-                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-                            <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
-                                Bersama Melayani Rakyat
-                            </h2>
-                        </div>
-                        {{-- <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
-                            <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-                                Shop Now
+                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                            <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bor1 p-lr-15 trans-04">
+                                <img src="https://suaraku.site/admin/foto/logo-pks.png" height="350px" alt="Logo PKS">
                             </a>
-                        </div> --}}
+                        </div>
+
+                        <br>
+
+                        <!--<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">-->
+                        <!--    <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">-->
+                        <!--        Bersama Melayani Rakyat-->
+                        <!--    </h2>-->
+                        <!--</div>-->
+
                     </div>
                 </div>
             </div>
@@ -36,11 +40,19 @@
                             </span> --}}
                         </div>
 
-                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-                            <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
-                                Bersama Melayani Rakyat
-                            </h2>
+                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                            <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bor1 p-lr-15 trans-04">
+                                <img src="https://suaraku.site/admin/foto/logo-pks.png" height="350px" alt="Logo PKS">
+                            </a>
                         </div>
+
+                        <br>
+
+                        <!--<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">-->
+                        <!--    <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">-->
+                        <!--        Bersama Melayani Rakyat-->
+                        <!--    </h2>-->
+                        <!--</div>-->
                         {{-- <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
                             <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                                 Shop Now
@@ -58,11 +70,19 @@
                             </span> --}}
                         </div>
 
-                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-                            <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
-                                Bersama Melayani Rakyat
-                            </h2>
+                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                            <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bor1 p-lr-15 trans-04">
+                                <img src="https://suaraku.site/admin/foto/logo-pks.png" height="350px" alt="Logo PKS">
+                            </a>
                         </div>
+
+                        <br>
+
+                        <!--<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">-->
+                        <!--    <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">-->
+                        <!--        Bersama Melayani Rakyat-->
+                        <!--    </h2>-->
+                        <!--</div>-->
                         {{-- <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
                             <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                                 Shop Now
@@ -80,11 +100,19 @@
                             </span> --}}
                         </div>
 
-                        <div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
-                            <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">
-                                Bersama Melayani Rakyat
-                            </h2>
+                        <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+                            <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bor1 p-lr-15 trans-04">
+                                <img src="https://suaraku.site/admin/foto/logo-pks.png" height="350px" alt="Logo PKS">
+                            </a>
                         </div>
+
+                        <br>
+
+                        <!--<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">-->
+                        <!--    <h2 class="ltext-104 txt-center cl0 p-t-22 p-b-40 respon1">-->
+                        <!--        Bersama Melayani Rakyat-->
+                        <!--    </h2>-->
+                        <!--</div>-->
                         {{-- <div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
                             <a href="product.html" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn2 p-lr-15 trans-04">
                                 Shop Now
@@ -103,13 +131,15 @@
     <div class="container">
         <div class="p-b-45">
             <h3 class="ltext-106 cl5 txt-center">
-                Daftar Calon
+                Caleg Dapil 4<br>
+                Kabupaten Probolinggo<br>
+                Pemilu 2024
             </h3>
         </div>
 
         @if($caleg->isEmpty())
         <div class="alert alert-danger" role="alert">
-            <strong>Maaf!</strong> Belum ada calon yang terdaftar.
+            <strong>Maaf!</strong> Data Calon Tidak Ada.
         </div>
 
         @endif
@@ -124,8 +154,8 @@
                         </div>
                         <div class="block2-txt flex-w flex-t p-t-14">
                             <div class="block2-txt-child1 flex-col-l ">
-                                <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                                    {{$data->name}}
+                                <a href="#" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                                    No Urut {{ $data->no_urut }}. {{$data->name}}
                                 </a>
 
                                 {{-- <span class="stext-105 cl3">
